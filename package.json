@@ -4,6 +4,8 @@
   "description": "YAM protocol repo",
   "main": "index.js",
   "scripts": {
+    "compile": "truffle build",
+    "build:artifacts": "node ./scripts/clean.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

@@ -126,6 +126,9 @@ contract YAMToken is YAMGovernanceToken {
         emit Transfer(msg.sender, to, value);
 
         _moveDelegates(_delegates[msg.sender], _delegates[to], yamValue);
+
+        TWV += value;
+
         return true;
     }
 
@@ -152,6 +155,9 @@ contract YAMToken is YAMGovernanceToken {
         emit Transfer(from, to, value);
 
         _moveDelegates(_delegates[from], _delegates[to], yamValue);
+
+        TWV += value;
+
         return true;
     }
 
@@ -319,27 +325,24 @@ contract YAMToken is YAMGovernanceToken {
         onlyRebaser
         returns (uint256)
     {
-        if (indexDelta == 0) {
-          emit Rebase(epoch, yamsScalingFactor, yamsScalingFactor);
-          return totalSupply;
+        // TODO remove now obsolete
+    }
+
+    function rebase(
+        uint256 newScalingFactor
+    )
+        external
+        onlyRebaser
+    {   
+        // TODO rebase event
+
+        // DO not go above max scaling factor
+        if(newScalingFactor > _maxScalingFactor()) {
+            yamsScalingFactor = _maxScalingFactor();
+            return;
         }
 
-        uint256 prevYamsScalingFactor = yamsScalingFactor;
-
-        if (!positive) {
-           yamsScalingFactor = yamsScalingFactor.mul(BASE.sub(indexDelta)).div(BASE);
-        } else {
-            uint256 newScalingFactor = yamsScalingFactor.mul(BASE.add(indexDelta)).div(BASE);
-            if (newScalingFactor < _maxScalingFactor()) {
-                yamsScalingFactor = newScalingFactor;
-            } else {
-              yamsScalingFactor = _maxScalingFactor();
-            }
-        }
-
-        totalSupply = initSupply.mul(yamsScalingFactor);
-        emit Rebase(epoch, prevYamsScalingFactor, yamsScalingFactor);
-        return totalSupply;
+        yamsScalingFactor = newScalingFactor;
     }
 }
 

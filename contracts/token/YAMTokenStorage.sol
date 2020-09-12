@@ -73,4 +73,7 @@ contract YAMTokenStorage {
 
     uint256 public initSupply;
 
+    // Time weighted velocity
+    uint256 public TWV;
+
 }
