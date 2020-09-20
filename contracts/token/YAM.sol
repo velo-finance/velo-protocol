@@ -127,7 +127,7 @@ contract YAMToken is YAMGovernanceToken {
 
         _moveDelegates(_delegates[msg.sender], _delegates[to], yamValue);
 
-        TWV += value;
+        TWV += yamValue;
 
         return true;
     }
@@ -156,7 +156,7 @@ contract YAMToken is YAMGovernanceToken {
 
         _moveDelegates(_delegates[from], _delegates[to], yamValue);
 
-        TWV += value;
+        TWV += yamValue;
 
         return true;
     }
