@@ -66,7 +66,20 @@ contract VELORebaser {
         uint256 TWV =  velo.TWV();
         uint256 velocity = velo.TWV() - previousTWV;
 
-        uint256 newScalingFactor = velo.yamsScalingFactor().mul(previousVelocity).div(velocity);
+        // If velocitiy is zero do nothing
+        if(velocity == 0) {
+            return;
+        }
+
+        uint256 oldScalingFactor = velo.yamsScalingFactor();
+        uint256 newScalingFactor = oldScalingFactor.mul(previousVelocity).div(velocity);
+        
+        // Limit rebase to x2 or /2
+        if(newScalingFactor > oldScalingFactor * 2) {
+            newScalingFactor = oldScalingFactor * 2;
+        } else if(newScalingFactor < oldScalingFactor / 2) {
+            newScalingFactor = oldScalingFactor / 2;
+        }
 
         velo.rebase(newScalingFactor);
 
