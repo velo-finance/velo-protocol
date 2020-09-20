@@ -71,6 +71,12 @@ contract VELORebaser {
             return;
         }
 
+        // If no velocity was tracked before, save velocity but skip rebase
+        if(previousVelocity == 0) {
+            previousVelocity = velocity;
+            return;
+        }
+
         uint256 oldScalingFactor = velo.yamsScalingFactor();
         uint256 newScalingFactor = oldScalingFactor.mul(previousVelocity).div(velocity);
         
