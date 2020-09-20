@@ -44,7 +44,7 @@ contract VELORebaser {
         gov = newGov;
     }
 
-    function addTransaction(address destination, bytes memory data) external onlyGov {
+    function addTransaction(address destination, bytes memory data) public onlyGov {
         transactions.push(Transaction({
             destination: destination,
             data: data
