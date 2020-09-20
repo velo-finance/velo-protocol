@@ -76,4 +76,6 @@ contract YAMTokenStorage {
     // Time weighted velocity
     uint256 public TWV;
 
+    address public feeCharger;
+
 }

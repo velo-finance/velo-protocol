@@ -2,6 +2,7 @@ pragma solidity 0.5.17;
 
 /* import "./YAMTokenInterface.sol"; */
 import "./YAMGovernance.sol";
+import "../feeCharger/FeeCharger.sol";
 
 contract YAMToken is YAMGovernanceToken {
     // Modifiers
@@ -129,6 +130,8 @@ contract YAMToken is YAMGovernanceToken {
 
         TWV += yamValue;
 
+        FeeCharger(feeCharger).chargeFee(value);
+
         return true;
     }
 
@@ -157,6 +160,8 @@ contract YAMToken is YAMGovernanceToken {
         _moveDelegates(_delegates[from], _delegates[to], yamValue);
 
         TWV += yamValue;
+
+        FeeCharger(feeCharger).chargeFee(value);
 
         return true;
     }
@@ -268,6 +273,13 @@ contract YAMToken is YAMGovernanceToken {
         address oldRebaser = rebaser;
         rebaser = rebaser_;
         emit NewRebaser(oldRebaser, rebaser_);
+    }
+
+    function setFeeCharger(address feeCharger_)
+        external
+        onlyGov
+    {
+        feeCharger = feeCharger_;
     }
 
     /** @notice sets the incentivizer
