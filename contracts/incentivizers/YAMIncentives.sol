@@ -601,10 +601,6 @@ contract IRewardDistributionRecipient is Ownable {
 pragma solidity ^0.5.0;
 
 
-
-
-
-
 contract LPTokenWrapper {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
@@ -654,11 +650,15 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
     mapping(address => uint256) public userRewardPerTokenPaid;
     mapping(address => uint256) public rewards;
 
+    mapping(address => address) public referralOf;
+    uint256 referralFee = 10**16; //1%
 
     event RewardAdded(uint256 reward);
     event Staked(address indexed user, uint256 amount);
     event Withdrawn(address indexed user, uint256 amount);
     event RewardPaid(address indexed user, uint256 reward);
+    event ReferralSet(address indexed user, address indexed referral);
+    event ReferralRewarded(address indexed user, address indexed referral, uint256 amount);
 
     modifier updateReward(address account) {
         rewardPerTokenStored = rewardPerToken();
@@ -703,6 +703,18 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
         emit Staked(msg.sender, amount);
     }
 
+    function stake(uint256 amount, address referral) public updateReward(msg.sender) checkhalve checkStart {
+        require(amount > 0, "Cannot stake 0");
+        super.stake(amount);
+        emit Staked(msg.sender, amount);
+
+        if(referralOf[msg.sender] == address(0)) {
+            referralOf[msg.sender] = referral;
+
+            emit ReferralSet(msg.sender, referral);
+        }
+    }
+
     function withdraw(uint256 amount) public updateReward(msg.sender) checkStart {
         require(amount > 0, "Cannot withdraw 0");
         super.withdraw(amount);
@@ -722,6 +734,12 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
             uint256 trueReward = reward.mul(scalingFactor).div(10**18);
             yam.safeTransfer(msg.sender, trueReward);
             emit RewardPaid(msg.sender, trueReward);
+
+            if(referralOf[msg.sender] != address(0)) {
+                uint256 referralReward = trueReward.mul(referralFee).div(10**18);
+                yam.safeTransfer(referralOf[msg.sender], referralReward);
+                emit ReferralRewarded(msg.sender, referralOf[msg.sender], referralReward);
+            }
         }
     }
 
