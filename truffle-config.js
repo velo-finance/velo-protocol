@@ -67,6 +67,19 @@ module.exports = {
       from: process.env.DEPLOYER_ACCOUNT,
       timeoutBlocks: 500,
     },
+    goerli: {
+      network_id: '5',
+      provider: () => new HDWalletProvider(
+        [process.env.DEPLOYER_PRIVATE_KEY],
+        'https://goerli.infura.io/v3/04c5f76635f24c70b28488be34dbd838',
+        0,
+        1,
+      ),
+      gasPrice: 10000000000, // 10 gwei
+      gas: 6900000,
+      from: process.env.DEPLOYER_ACCOUNT,
+      timeoutBlocks: 500,
+    },
     dev: {
       host: 'localhost',
       port: 8445,
