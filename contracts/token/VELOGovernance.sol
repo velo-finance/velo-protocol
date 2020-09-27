@@ -147,7 +147,7 @@ contract VELOGovernanceToken is VELOTokenInterface {
         internal
     {
         address currentDelegate = _delegates[delegator];
-        uint256 delegatorBalance = _yamBalances[delegator]; // balance of underlying VELOs (not scaled);
+        uint256 delegatorBalance = _veloBalances[delegator]; // balance of underlying VELOs (not scaled);
         _delegates[delegator] = delegatee;
 
         emit DelegateChanged(delegator, currentDelegate, delegatee);

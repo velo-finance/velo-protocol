@@ -65,9 +65,9 @@ contract VELOTokenStorage {
     /**
      * @notice Scaling factor that adjusts everyone's balances
      */
-    uint256 public yamsScalingFactor;
+    uint256 public velosScalingFactor;
 
-    mapping (address => uint256) internal _yamBalances;
+    mapping (address => uint256) internal _veloBalances;
 
     mapping (address => mapping (address => uint256)) internal _allowedFragments;
 

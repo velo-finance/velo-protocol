@@ -24,9 +24,9 @@ const Home: React.FC = () => {
           display: 'flex',
           flexDirection: 'column',
         }}>
-          <Button href="https://snapshot.page/#/yam" text="View Proposals" />
+          <Button href="https://snapshot.page/#/velo" text="View Proposals" />
           <Spacer />
-          <Button href="https://forum.yam.finance" text="Governance Forum" />
+          <Button href="https://forum.velo.finance" text="Governance Forum" />
         </div>
         <Spacer size="lg" />
         <Balances />

@@ -46,7 +46,7 @@ module.exports = migration;
 
 async function deployDistribution(deployer, network, accounts) {
   console.log(network)
-  let yam = await VELOProxy.deployed();
+  let velo = await VELOProxy.deployed();
   let yReserves = await VELOReserves.deployed()
   let yRebaser = await VELORebaser.deployed()
   let tl = await Timelock.deployed();
@@ -83,15 +83,15 @@ async function deployDistribution(deployer, network, accounts) {
     console.log("transfering and notifying");
     console.log("eth");
     await Promise.all([
-      yam.transfer(VELO_ETHPool.address, two_fifty.toString()),
-      yam.transfer(VELO_uAMPLPool.address, two_fifty.toString()),
-      yam.transfer(VELO_YFIPool.address, two_fifty.toString()),
-      yam.transfer(VELO_LENDPool.address, two_fifty.toString()),
-      yam.transfer(VELO_MKRPool.address, two_fifty.toString()),
-      yam.transfer(VELO_SNXPool.address, two_fifty.toString()),
-      yam.transfer(VELO_COMPPool.address, two_fifty.toString()),
-      yam.transfer(VELO_LINKPool.address, two_fifty.toString()),
-      yam._setIncentivizer(VELOIncentivizer.address),
+      velo.transfer(VELO_ETHPool.address, two_fifty.toString()),
+      velo.transfer(VELO_uAMPLPool.address, two_fifty.toString()),
+      velo.transfer(VELO_YFIPool.address, two_fifty.toString()),
+      velo.transfer(VELO_LENDPool.address, two_fifty.toString()),
+      velo.transfer(VELO_MKRPool.address, two_fifty.toString()),
+      velo.transfer(VELO_SNXPool.address, two_fifty.toString()),
+      velo.transfer(VELO_COMPPool.address, two_fifty.toString()),
+      velo.transfer(VELO_LINKPool.address, two_fifty.toString()),
+      velo._setIncentivizer(VELOIncentivizer.address),
     ]);
 
     await Promise.all([
@@ -133,7 +133,7 @@ async function deployDistribution(deployer, network, accounts) {
   }
 
   await Promise.all([
-    yam._setPendingGov(Timelock.address),
+    velo._setPendingGov(Timelock.address),
     yReserves._setPendingGov(Timelock.address),
     yRebaser._setPendingGov(Timelock.address),
   ]);

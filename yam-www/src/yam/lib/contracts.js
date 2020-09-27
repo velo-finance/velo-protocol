@@ -49,7 +49,7 @@ export class Contracts {
     this.yfi = new this.web3.eth.Contract(ERC20Json.abi);
     this.UNIAmpl = new this.web3.eth.Contract(ERC20Json.abi);
     this.ycrv = new this.web3.eth.Contract(ERC20Json.abi);
-    this.yam = new this.web3.eth.Contract(VELOJson.abi);
+    this.velo = new this.web3.eth.Contract(VELOJson.abi);
 
     this.yfi_pool = new this.web3.eth.Contract(YFIPoolJson.abi);
     this.eth_pool = new this.web3.eth.Contract(WETHPoolJson.abi);
@@ -67,14 +67,14 @@ export class Contracts {
     this.lend = new this.web3.eth.Contract(ERC20Json.abi);
     this.snx = new this.web3.eth.Contract(ERC20Json.abi);
     this.mkr = new this.web3.eth.Contract(ERC20Json.abi);
-    this.yam_ycrv_uni_lp = new this.web3.eth.Contract(ERC20Json.abi);
+    this.velo_ycrv_uni_lp = new this.web3.eth.Contract(ERC20Json.abi);
 
     this.erc20 = new this.web3.eth.Contract(ERC20Json.abi);
     this.pool = new this.web3.eth.Contract(LENDPoolJson.abi);
 
 
-    this.yamV2 = new this.web3.eth.Contract(VELOv2Json.abi);
-    this.yamV2migration = new this.web3.eth.Contract(VELOv2MigrationJson.abi);
+    this.veloV2 = new this.web3.eth.Contract(VELOv2Json.abi);
+    this.veloV2migration = new this.web3.eth.Contract(VELOv2MigrationJson.abi);
 
     this.rebaser = new this.web3.eth.Contract(VELORebaserJson.abi);
     this.reserves = new this.web3.eth.Contract(VELOReservesJson.abi);
@@ -90,13 +90,13 @@ export class Contracts {
     provider,
     networkId
   ) {
-    this.yam.setProvider(provider);
+    this.velo.setProvider(provider);
     this.rebaser.setProvider(provider);
     this.reserves.setProvider(provider);
     this.gov.setProvider(provider);
     this.timelock.setProvider(provider);
     const contracts = [
-      { contract: this.yam, json: VELOJson },
+      { contract: this.velo, json: VELOJson },
       { contract: this.rebaser, json: VELORebaserJson },
       { contract: this.reserves, json: VELOReservesJson },
       { contract: this.gov, json: VELOGovJson },
@@ -110,8 +110,8 @@ export class Contracts {
       { contract: this.lend_pool, json: LENDPoolJson },
       { contract: this.link_pool, json: LINKPoolJson },
       { contract: this.comp_pool, json: COMPPoolJson },
-      { contract: this.yamV2, json: VELOv2Json },
-      { contract: this.yamV2migration, json: VELOv2MigrationJson },
+      { contract: this.veloV2, json: VELOv2Json },
+      { contract: this.veloV2migration, json: VELOv2MigrationJson },
     ]
 
     contracts.forEach(contract => this.setContractProvider(
@@ -132,7 +132,7 @@ export class Contracts {
     this.UNIAmpl.options.address = addressMap["UNIAmpl"];
     this.uni_fact.options.address = addressMap["uniswapFactoryV2"];
     this.uni_router.options.address = addressMap["UNIRouter"];
-    this.yam_ycrv_uni_lp.options.address = addressMap["VELOYCRV"];
+    this.velo_ycrv_uni_lp.options.address = addressMap["VELOYCRV"];
 
     this.pools = [
       {"tokenAddr": this.yfi.options.address, "poolAddr": this.yfi_pool.options.address},
@@ -151,7 +151,7 @@ export class Contracts {
   ) {
     this.yfi.options.from = account;
     this.ycrv.options.from = account;
-    this.yam.options.from = account;
+    this.velo.options.from = account;
     this.weth.options.from = account;
   }
 

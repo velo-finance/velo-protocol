@@ -14,7 +14,7 @@ import Separator from '../../../components/Separator'
 import Spacer from '../../../components/Spacer'
 import Value from '../../../components/Value'
 
-import { yam as yamAddress } from '../../../constants/tokenAddresses'
+import { velo as veloAddress } from '../../../constants/tokenAddresses'
 
 import useAllowance from '../../../hooks/useAllowance'
 import useApprove from '../../../hooks/useApprove'
@@ -24,7 +24,7 @@ import useYam from '../../../hooks/useYam'
 
 import { bnToDec } from '../../../utils'
 import { getContract } from '../../../utils/erc20'
-import { getMigrationEndTime, migrate } from '../../../yamUtils'
+import { getMigrationEndTime, migrate } from '../../../veloUtils'
 
 const Migrate: React.FC = () => {
 
@@ -34,18 +34,18 @@ const Migrate: React.FC = () => {
 
   const { account, ethereum } = useWallet()
   const scalingFactor = useScalingFactor()
-  const yam = useYam()
+  const velo = useYam()
 
-  const yamV1Balance = bnToDec(useTokenBalance(yamAddress))
-  const yamV2ReceiveAmount = yamV1Balance / scalingFactor
+  const veloV1Balance = bnToDec(useTokenBalance(veloAddress))
+  const veloV2ReceiveAmount = veloV1Balance / scalingFactor
 
-  const yamV1Token = useMemo(() => {
-    return getContract(ethereum as provider, yamAddress)
+  const veloV1Token = useMemo(() => {
+    return getContract(ethereum as provider, veloAddress)
   }, [ethereum])
 
-  const migrationContract = yam ? (yam as any).contracts.yamV2migration : undefined
-  const allowance = useAllowance(yamV1Token, migrationContract)
-  const { onApprove } = useApprove(yamV1Token, migrationContract)
+  const migrationContract = velo ? (velo as any).contracts.veloV2migration : undefined
+  const allowance = useAllowance(veloV1Token, migrationContract)
+  const { onApprove } = useApprove(veloV1Token, migrationContract)
   
   const countdownRenderer = useCallback((countdownProps: CountdownRenderProps) => {
     const { days, hours, minutes, seconds } = countdownProps
@@ -61,33 +61,33 @@ const Migrate: React.FC = () => {
   const handleMigrate = useCallback(async () => {
     try {
       setMigrateButtonDisabled(true)
-      await migrate(yam, account)
+      await migrate(velo, account)
       setMigrateButtonDisabled(false)
     } catch (e) {
       setMigrateButtonDisabled(false)
     }
-  }, [account, yam, setMigrateButtonDisabled])
+  }, [account, velo, setMigrateButtonDisabled])
 
   useEffect(() => {
     async function fetchMigrationEndDate () {
       try {
-        const endTimestamp: number = await getMigrationEndTime(yam)
+        const endTimestamp: number = await getMigrationEndTime(velo)
         setMigrationEndDate(new Date(endTimestamp * 1000))
       } catch (e) { console.log(e) }
     }
-    if (yam) {
+    if (velo) {
       fetchMigrationEndDate()
     }
-  }, [yam, setMigrationEndDate])
+  }, [velo, setMigrationEndDate])
 
   useEffect(() => {
-    if (!account || !yamV1Balance) {
+    if (!account || !veloV1Balance) {
       setMigrateButtonDisabled(true)
     }
-    if (account && yamV1Balance) {
+    if (account && veloV1Balance) {
       setMigrateButtonDisabled(false)
     }
-  }, [account, setMigrateButtonDisabled, yamV1Balance])
+  }, [account, setMigrateButtonDisabled, veloV1Balance])
 
   const handleApprove = useCallback(async () => {
     setApprovalDisabled(true)
@@ -117,14 +117,14 @@ const Migrate: React.FC = () => {
           <Spacer size="lg" />
           <StyledBalances>
             <StyledBalance>
-              <Value value={yamV1Balance ? numeral(yamV1Balance).format('0.00a') : '--'} />
+              <Value value={veloV1Balance ? numeral(veloV1Balance).format('0.00a') : '--'} />
               <Label text="Burn VELOV1" />
             </StyledBalance>
             <div style={{ alignSelf: 'stretch' }}>
             <Separator orientation="vertical" />
             </div>
             <StyledBalance>
-              <Value value={yamV2ReceiveAmount ? numeral(yamV2ReceiveAmount).format('0.00a') : '--'} />
+              <Value value={veloV2ReceiveAmount ? numeral(veloV2ReceiveAmount).format('0.00a') : '--'} />
               <Label text="Mint VELOV2" />
             </StyledBalance>
           </StyledBalances>

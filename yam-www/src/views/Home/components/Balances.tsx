@@ -10,7 +10,7 @@ import Spacer from '../../../components/Spacer'
 import Value from '../../../components/Value'
 import YamIcon from '../../../components/YamIcon'
 
-import { yam as yamAddress, yamv2 as yamV2Address } from '../../../constants/tokenAddresses'
+import { velo as veloAddress, velov2 as veloV2Address } from '../../../constants/tokenAddresses'
 
 import useFarms from '../../../hooks/useFarms'
 import useTokenBalance from '../../../hooks/useTokenBalance'
@@ -18,23 +18,23 @@ import useUnharvested from '../../../hooks/useUnharvested'
 import useYam from '../../../hooks/useYam'
 
 import { bnToDec } from '../../../utils'
-import { getV2Supply } from '../../../yamUtils'
+import { getV2Supply } from '../../../veloUtils'
 
 const Balances: React.FC = () => {
   const [totalSupply, setTotalSupply] = useState<number>()
-  const v2Balance = useTokenBalance(yamV2Address)
-  const yam = useYam()
+  const v2Balance = useTokenBalance(veloV2Address)
+  const velo = useYam()
   const { account } = useWallet()
 
   useEffect(() => {
     async function fetchTotalSupply () {
-      const supply = await getV2Supply(yam)
+      const supply = await getV2Supply(velo)
       setTotalSupply(bnToDec(supply, 24))
     }
-    if (yam) {
+    if (velo) {
       fetchTotalSupply()
     }
-  }, [yam, setTotalSupply])
+  }, [velo, setTotalSupply])
 
   return (
     <StyledWrapper>

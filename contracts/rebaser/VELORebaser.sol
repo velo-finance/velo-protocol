@@ -77,7 +77,7 @@ contract VELORebaser {
             return;
         }
 
-        uint256 oldScalingFactor = velo.yamsScalingFactor();
+        uint256 oldScalingFactor = velo.velosScalingFactor();
         uint256 newScalingFactor = oldScalingFactor.mul(previousVelocity).div(velocity);
         
         // Limit rebase to x2 or /2

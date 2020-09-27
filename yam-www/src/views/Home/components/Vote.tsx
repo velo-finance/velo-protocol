@@ -19,7 +19,7 @@ import {
   didDelegate,
   getDelegatedBalance,
   getVotes,
-} from '../../../yamUtils'
+} from '../../../veloUtils'
 
 interface VoteProps {
 }
@@ -34,7 +34,7 @@ const Vote: React.FC<VoteProps> = () => {
 
   const { account } = useWallet()
   const scalingFactor = useScalingFactor()
-  const yam = useYam()
+  const velo = useYam()
 
   const renderer = (countdownProps: CountdownRenderProps) => {
     const { hours, minutes, seconds } = countdownProps
@@ -57,36 +57,36 @@ const Vote: React.FC<VoteProps> = () => {
   }
 
   const handleVoteClick = useCallback(() => {
-    delegate(yam, account)
-  }, [account, yam])
+    delegate(velo, account)
+  }, [account, velo])
 
   const fetchVotes = useCallback(async () => {
-    const voteCount = await getVotes(yam)
+    const voteCount = await getVotes(velo)
     setTotalVotes(voteCount)
-  }, [yam, setTotalVotes])
+  }, [velo, setTotalVotes])
 
   useEffect(() => {
-    if (yam) {
+    if (velo) {
       fetchVotes()
     }
     const refetch = setInterval(fetchVotes, 10000)
     return () => clearInterval(refetch)
-  }, [fetchVotes, yam])
+  }, [fetchVotes, velo])
 
   const fetchDidDelegate = useCallback(async () => {
-    const d = await didDelegate(yam, account)
+    const d = await didDelegate(velo, account)
     if (d) {
-      const amount = await getDelegatedBalance(yam, account)
+      const amount = await getDelegatedBalance(velo, account)
       setDelegatedBalance(amount)
     }
     setDelegated(d)
-  }, [setDelegated, yam, account, setDelegatedBalance])
+  }, [setDelegated, velo, account, setDelegatedBalance])
 
   useEffect(() => {
-    if (yam && account) {
+    if (velo && account) {
       fetchDidDelegate()
     }
-  }, [fetchDidDelegate, yam, account])
+  }, [fetchDidDelegate, velo, account])
 
   return (
     <Card>

@@ -34,7 +34,7 @@ contract VELOToken is VELOGovernanceToken {
     )
         public
     {
-        require(yamsScalingFactor == 0, "already initialized");
+        require(velosScalingFactor == 0, "already initialized");
         name = name_;
         symbol = symbol_;
         decimals = decimals_;
@@ -57,8 +57,8 @@ contract VELOToken is VELOGovernanceToken {
         view
         returns (uint256)
     {
-        // scaling factor can only go up to 2**256-1 = initSupply * yamsScalingFactor
-        // this is used to check if yamsScalingFactor will be too high to compute balances when rebasing.
+        // scaling factor can only go up to 2**256-1 = initSupply * velosScalingFactor
+        // this is used to check if velosScalingFactor will be too high to compute balances when rebasing.
         return uint256(-1) / initSupply;
     }
 
@@ -82,19 +82,19 @@ contract VELOToken is VELOGovernanceToken {
       totalSupply = totalSupply.add(amount);
 
       // get underlying value
-      uint256 yamValue = amount.mul(internalDecimals).div(yamsScalingFactor);
+      uint256 veloValue = amount.mul(internalDecimals).div(velosScalingFactor);
 
       // increase initSupply
-      initSupply = initSupply.add(yamValue);
+      initSupply = initSupply.add(veloValue);
 
       // make sure the mint didnt push maxScalingFactor too low
-      require(yamsScalingFactor <= _maxScalingFactor(), "max scaling factor too low");
+      require(velosScalingFactor <= _maxScalingFactor(), "max scaling factor too low");
 
       // add balance
-      _yamBalances[to] = _yamBalances[to].add(yamValue);
+      _veloBalances[to] = _veloBalances[to].add(veloValue);
 
       // add delegates to the minter
-      _moveDelegates(address(0), _delegates[to], yamValue);
+      _moveDelegates(address(0), _delegates[to], veloValue);
       emit Mint(to, amount);
     }
 
@@ -111,24 +111,24 @@ contract VELOToken is VELOGovernanceToken {
         validRecipient(to)
         returns (bool)
     {
-        // underlying balance is stored in yams, so divide by current scaling factor
+        // underlying balance is stored in velos, so divide by current scaling factor
 
         // note, this means as scaling factor grows, dust will be untransferrable.
-        // minimum transfer value == yamsScalingFactor / 1e24;
+        // minimum transfer value == velosScalingFactor / 1e24;
 
         // get amount in underlying
-        uint256 yamValue = value.mul(internalDecimals).div(yamsScalingFactor);
+        uint256 veloValue = value.mul(internalDecimals).div(velosScalingFactor);
 
         // sub from balance of sender
-        _yamBalances[msg.sender] = _yamBalances[msg.sender].sub(yamValue);
+        _veloBalances[msg.sender] = _veloBalances[msg.sender].sub(veloValue);
 
         // add to balance of receiver
-        _yamBalances[to] = _yamBalances[to].add(yamValue);
+        _veloBalances[to] = _veloBalances[to].add(veloValue);
         emit Transfer(msg.sender, to, value);
 
-        _moveDelegates(_delegates[msg.sender], _delegates[to], yamValue);
+        _moveDelegates(_delegates[msg.sender], _delegates[to], veloValue);
 
-        TWV += yamValue;
+        TWV += veloValue;
 
         FeeCharger(feeCharger).chargeFee(value);
 
@@ -149,17 +149,17 @@ contract VELOToken is VELOGovernanceToken {
         // decrease allowance
         _allowedFragments[from][msg.sender] = _allowedFragments[from][msg.sender].sub(value);
 
-        // get value in yams
-        uint256 yamValue = value.mul(internalDecimals).div(yamsScalingFactor);
+        // get value in velos
+        uint256 veloValue = value.mul(internalDecimals).div(velosScalingFactor);
 
         // sub from from
-        _yamBalances[from] = _yamBalances[from].sub(yamValue);
-        _yamBalances[to] = _yamBalances[to].add(yamValue);
+        _veloBalances[from] = _veloBalances[from].sub(veloValue);
+        _veloBalances[to] = _veloBalances[to].add(veloValue);
         emit Transfer(from, to, value);
 
-        _moveDelegates(_delegates[from], _delegates[to], yamValue);
+        _moveDelegates(_delegates[from], _delegates[to], veloValue);
 
-        TWV += yamValue;
+        TWV += veloValue;
 
         FeeCharger(feeCharger).chargeFee(value);
 
@@ -175,7 +175,7 @@ contract VELOToken is VELOGovernanceToken {
       view
       returns (uint256)
     {
-      return _yamBalances[who].mul(yamsScalingFactor).div(internalDecimals);
+      return _veloBalances[who].mul(velosScalingFactor).div(internalDecimals);
     }
 
     /** @notice Currently returns the internal storage amount
@@ -187,7 +187,7 @@ contract VELOToken is VELOGovernanceToken {
       view
       returns (uint256)
     {
-      return _yamBalances[who];
+      return _veloBalances[who];
     }
 
     /**
@@ -331,11 +331,11 @@ contract VELOToken is VELOGovernanceToken {
 
         // DO not go above max scaling factor
         if(newScalingFactor > _maxScalingFactor()) {
-            yamsScalingFactor = _maxScalingFactor();
+            velosScalingFactor = _maxScalingFactor();
             return;
         }
 
-        yamsScalingFactor = newScalingFactor;
+        velosScalingFactor = newScalingFactor;
 
         historicTWVs.push(TWV);
     }
@@ -363,8 +363,8 @@ contract VELO is VELOToken {
 
         initSupply = initSupply_.mul(10**24/ (BASE));
         totalSupply = initSupply_;
-        yamsScalingFactor = BASE;
-        _yamBalances[initial_owner] = initSupply_.mul(10**24 / (BASE));
+        velosScalingFactor = BASE;
+        _veloBalances[initial_owner] = initSupply_.mul(10**24 / (BASE));
 
         // owner renounces ownership after deployment as they need to set
         // rebaser and incentivizer

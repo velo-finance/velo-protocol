@@ -1,4 +1,4 @@
-import { Yam } from '../../yam'
+import { Yam } from '../../velo'
 
 import { bnToDec } from '../../utils'
 
@@ -9,42 +9,42 @@ import {
   getNextRebaseTimestamp as gNRT,
   getTotalSupply as gTS,
   getScalingFactor,
-} from '../../yamUtils'
+} from '../../veloUtils'
 
-const getCurrentPrice = async (yam: typeof Yam): Promise<number> => {
+const getCurrentPrice = async (velo: typeof Yam): Promise<number> => {
   // FORBROCK: get current VELO price
-  return gCP(yam)
+  return gCP(velo)
 }
 
-const getTargetPrice = async (yam: typeof Yam): Promise<number> => {
+const getTargetPrice = async (velo: typeof Yam): Promise<number> => {
   // FORBROCK: get target VELO price
-  return gTP(yam)
+  return gTP(velo)
 }
 
-const getCirculatingSupply = async (yam: typeof Yam): Promise<string> => {
+const getCirculatingSupply = async (velo: typeof Yam): Promise<string> => {
   // FORBROCK: get circulating supply
-  return gCS(yam)
+  return gCS(velo)
 }
 
-const getNextRebaseTimestamp = async (yam: typeof Yam): Promise<number> => {
+const getNextRebaseTimestamp = async (velo: typeof Yam): Promise<number> => {
   // FORBROCK: get next rebase timestamp
-  const nextRebase = await gNRT(yam) as number
+  const nextRebase = await gNRT(velo) as number
   return nextRebase * 1000
 }
 
-const getTotalSupply = async (yam: typeof Yam): Promise<string> => {
+const getTotalSupply = async (velo: typeof Yam): Promise<string> => {
   // FORBROCK: get total supply
-  return gTS(yam)
+  return gTS(velo)
 }
 
-export const getStats = async (yam: typeof Yam) => {
-  const curPrice = await getCurrentPrice(yam)
-  const circSupply = '' // await getCirculatingSupply(yam)
-  const nextRebase = await getNextRebaseTimestamp(yam)
-  const rawScalingFactor = await getScalingFactor(yam)
+export const getStats = async (velo: typeof Yam) => {
+  const curPrice = await getCurrentPrice(velo)
+  const circSupply = '' // await getCirculatingSupply(velo)
+  const nextRebase = await getNextRebaseTimestamp(velo)
+  const rawScalingFactor = await getScalingFactor(velo)
   const scalingFactor = Number(bnToDec(rawScalingFactor).toFixed(2))
-  const targetPrice = await getTargetPrice(yam)
-  const totalSupply = await getTotalSupply(yam)
+  const targetPrice = await getTargetPrice(velo)
+  const totalSupply = await getTotalSupply(velo)
   return {
     circSupply,
     curPrice,

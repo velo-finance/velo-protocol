@@ -2,23 +2,23 @@ import { useEffect, useState } from 'react'
 import BigNumber from 'bignumber.js'
 
 import { bnToDec, decToBn } from '../utils'
-import { getScalingFactor } from '../yamUtils'
+import { getScalingFactor } from '../veloUtils'
 
 import useYam from './useYam'
 
 const useScalingFactor = () => {
   const [scalingFactor, setScalingFactor] = useState(decToBn(1))
-  const yam = useYam()
+  const velo = useYam()
 
   useEffect(() => {
     async function fetchScalingFactor () {
-      const sf = await getScalingFactor(yam)
+      const sf = await getScalingFactor(velo)
       setScalingFactor(sf)
     }
-    if (yam) {
+    if (velo) {
       fetchScalingFactor()
     }
-  }, [yam])
+  }, [velo])
 
   return bnToDec(scalingFactor)
 }

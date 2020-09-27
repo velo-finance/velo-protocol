@@ -9,7 +9,7 @@
                 },
                 {
                     "internalType": "address",
-                    "name": "yam_",
+                    "name": "velo_",
                     "type": "address"
                 }
             ],
@@ -329,7 +329,7 @@
         {
             "constant": true,
             "inputs": [],
-            "name": "yam",
+            "name": "velo",
             "outputs": [
                 {
                     "internalType": "contract VELOInterface",

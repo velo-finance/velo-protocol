@@ -11,7 +11,7 @@ import {
 } from "../lib/Helpers.js"
 
 
-export const yam = new Yam(
+export const velo = new Yam(
   "http://localhost:8545/",
   // "http://127.0.0.1:9545/",
   "1001",
@@ -33,98 +33,98 @@ describe("token_tests", () => {
   let user = "0x683A78bA1f6b25E29fbBC9Cd1BFA29A51520De84";
   let new_user;
   beforeAll(async () => {
-    const accounts = await yam.web3.eth.getAccounts();
-    yam.addAccount(accounts[0]);
+    const accounts = await velo.web3.eth.getAccounts();
+    velo.addAccount(accounts[0]);
     new_user = accounts[1];
-    snapshotId = await yam.testing.snapshot();
+    snapshotId = await velo.testing.snapshot();
   });
 
   beforeEach(async () => {
-    await yam.testing.resetEVM("0x2");
+    await velo.testing.resetEVM("0x2");
   });
 
   // describe("expected fail", () => {
   //   test("before start", async () => {
-  //     await yam.testing.resetEVM("0x2");
-  //     let startTime = await yam.contracts.yamV2migration.methods.startTime().call();
-  //     let timeNow = yam.toBigN((await yam.web3.eth.getBlock('latest'))["timestamp"]);
-  //     let waitTime = yam.toBigN(startTime).minus(timeNow);
+  //     await velo.testing.resetEVM("0x2");
+  //     let startTime = await velo.contracts.veloV2migration.methods.startTime().call();
+  //     let timeNow = velo.toBigN((await velo.web3.eth.getBlock('latest'))["timestamp"]);
+  //     let waitTime = velo.toBigN(startTime).minus(timeNow);
   //     if (waitTime <= 0) {
   //       // this test is hard to run on ganache as there is no easy way to
   //       // ensure that another test hasnt increased the time already
   //       console.log("WARNING: TEST CANNOT OCCUR DUE TO GANACHE TIMING");
   //     } else {
-  //       await yam.testing.expectThrow(yam.contracts.yamV2migration.methods.migrate().send({from: user}), "!started");
+  //       await velo.testing.expectThrow(velo.contracts.veloV2migration.methods.migrate().send({from: user}), "!started");
   //     }
   //   });
   //   test("user 0 balance", async () => {
   //     // fast forward to startTime
-  //     let startTime = await yam.contracts.yamV2migration.methods.startTime().call();
-  //     let timeNow = yam.toBigN((await yam.web3.eth.getBlock('latest'))["timestamp"]);
-  //     let waitTime = yam.toBigN(startTime).minus(timeNow);
+  //     let startTime = await velo.contracts.veloV2migration.methods.startTime().call();
+  //     let timeNow = velo.toBigN((await velo.web3.eth.getBlock('latest'))["timestamp"]);
+  //     let waitTime = velo.toBigN(startTime).minus(timeNow);
   //     if (waitTime.toNumber() > 0) {
-  //       await yam.testing.increaseTime(waitTime.toNumber());
+  //       await velo.testing.increaseTime(waitTime.toNumber());
   //     }
-  //     await yam.testing.expectThrow(yam.contracts.yamV2migration.methods.migrate().send({from: new_user}), "No yams");
+  //     await velo.testing.expectThrow(velo.contracts.veloV2migration.methods.migrate().send({from: new_user}), "No velos");
   //   });
   //   test("after end", async () => {
   //     // increase time
-  //     let startTime = await yam.contracts.yamV2migration.methods.startTime().call();
-  //     let migrationDuration = await yam.contracts.yamV2migration.methods.migrationDuration().call();
-  //     let timeNow = yam.toBigN((await yam.web3.eth.getBlock('latest'))["timestamp"]);
-  //     let waitTime = yam.toBigN(startTime).plus(yam.toBigN(migrationDuration)).minus(timeNow);
+  //     let startTime = await velo.contracts.veloV2migration.methods.startTime().call();
+  //     let migrationDuration = await velo.contracts.veloV2migration.methods.migrationDuration().call();
+  //     let timeNow = velo.toBigN((await velo.web3.eth.getBlock('latest'))["timestamp"]);
+  //     let waitTime = velo.toBigN(startTime).plus(velo.toBigN(migrationDuration)).minus(timeNow);
   //     if (waitTime.toNumber() > 0) {
-  //       await yam.testing.increaseTime(waitTime.toNumber());
+  //       await velo.testing.increaseTime(waitTime.toNumber());
   //     }
   //     // expect fail
-  //     await yam.testing.expectThrow(yam.contracts.yamV2migration.methods.migrate().send({from: user}), "migration ended");
+  //     await velo.testing.expectThrow(velo.contracts.veloV2migration.methods.migrate().send({from: user}), "migration ended");
   //   });
   //   test("double migrate", async () => {
-  //     await yam.contracts.yam.methods.approve(yam.contracts.yamV2migration.options.address, "10000000000000000000000000000000000").send({from: user, gas: 1000000});
-  //     await yam.contracts.yamV2migration.methods.migrate().send({from: user, gas: 1000000});
-  //     let yam_bal = yam.toBigN(await yam.contracts.yam.methods.balanceOfUnderlying(user).call()).toNumber();
-  //     await yam.testing.expectThrow(yam.contracts.yamV2migration.methods.migrate().send({from: user, gas: 1000000}), "No yams");
+  //     await velo.contracts.velo.methods.approve(velo.contracts.veloV2migration.options.address, "10000000000000000000000000000000000").send({from: user, gas: 1000000});
+  //     await velo.contracts.veloV2migration.methods.migrate().send({from: user, gas: 1000000});
+  //     let velo_bal = velo.toBigN(await velo.contracts.velo.methods.balanceOfUnderlying(user).call()).toNumber();
+  //     await velo.testing.expectThrow(velo.contracts.veloV2migration.methods.migrate().send({from: user, gas: 1000000}), "No velos");
   //   });
   // });
 
   describe("non-failing", () => {
     test("zeros balance", async () => {
-      let startTime = await yam.contracts.yamV2migration.methods.startTime().call();
-      let timeNow = yam.toBigN((await yam.web3.eth.getBlock('latest'))["timestamp"]);
-      let waitTime = yam.toBigN(startTime).minus(timeNow);
+      let startTime = await velo.contracts.veloV2migration.methods.startTime().call();
+      let timeNow = velo.toBigN((await velo.web3.eth.getBlock('latest'))["timestamp"]);
+      let waitTime = velo.toBigN(startTime).minus(timeNow);
       if (waitTime.toNumber() > 0) {
-        await yam.testing.increaseTime(waitTime.toNumber());
+        await velo.testing.increaseTime(waitTime.toNumber());
       }
-      await yam.contracts.yam.methods.approve(yam.contracts.yamV2migration.options.address, "10000000000000000000000000000000000").send({from: user, gas: 1000000});
-      await yam.contracts.yamV2migration.methods.migrate().send({from: user, gas: 1000000});
-      let yam_bal = yam.toBigN(await yam.contracts.yam.methods.balanceOf(user).call()).toNumber();
-      expect(yam_bal).toBe(0);
+      await velo.contracts.velo.methods.approve(velo.contracts.veloV2migration.options.address, "10000000000000000000000000000000000").send({from: user, gas: 1000000});
+      await velo.contracts.veloV2migration.methods.migrate().send({from: user, gas: 1000000});
+      let velo_bal = velo.toBigN(await velo.contracts.velo.methods.balanceOf(user).call()).toNumber();
+      expect(velo_bal).toBe(0);
     });
     test("v2 balance equal to v1 underlying balance", async () => {
-      let startTime = await yam.contracts.yamV2migration.methods.startTime().call();
-      let timeNow = yam.toBigN((await yam.web3.eth.getBlock('latest'))["timestamp"]);
-      let waitTime = yam.toBigN(startTime).minus(timeNow);
+      let startTime = await velo.contracts.veloV2migration.methods.startTime().call();
+      let timeNow = velo.toBigN((await velo.web3.eth.getBlock('latest'))["timestamp"]);
+      let waitTime = velo.toBigN(startTime).minus(timeNow);
       if (waitTime.toNumber() > 0) {
-        await yam.testing.increaseTime(waitTime.toNumber());
+        await velo.testing.increaseTime(waitTime.toNumber());
       }
-      let yam_bal = yam.toBigN(await yam.contracts.yam.methods.balanceOfUnderlying(user).call());
-      await yam.contracts.yam.methods.approve(yam.contracts.yamV2migration.options.address, "10000000000000000000000000000000000").send({from: user, gas: 1000000});
-      await yam.contracts.yamV2migration.methods.migrate().send({from: user, gas: 1000000});
-      let yamV2_bal = yam.toBigN(await yam.contracts.yamV2.methods.balanceOf(user).call());
-      expect(yam_bal.toString()).toBe(yamV2_bal.toString());
+      let velo_bal = velo.toBigN(await velo.contracts.velo.methods.balanceOfUnderlying(user).call());
+      await velo.contracts.velo.methods.approve(velo.contracts.veloV2migration.options.address, "10000000000000000000000000000000000").send({from: user, gas: 1000000});
+      await velo.contracts.veloV2migration.methods.migrate().send({from: user, gas: 1000000});
+      let veloV2_bal = velo.toBigN(await velo.contracts.veloV2.methods.balanceOf(user).call());
+      expect(velo_bal.toString()).toBe(veloV2_bal.toString());
     });
-    test("totalSupply increase equal to yam_underlying_bal", async () => {
-      let startTime = await yam.contracts.yamV2migration.methods.startTime().call();
-      let timeNow = yam.toBigN((await yam.web3.eth.getBlock('latest'))["timestamp"]);
-      let waitTime = yam.toBigN(startTime).minus(timeNow);
+    test("totalSupply increase equal to velo_underlying_bal", async () => {
+      let startTime = await velo.contracts.veloV2migration.methods.startTime().call();
+      let timeNow = velo.toBigN((await velo.web3.eth.getBlock('latest'))["timestamp"]);
+      let waitTime = velo.toBigN(startTime).minus(timeNow);
       if (waitTime.toNumber() > 0) {
-        await yam.testing.increaseTime(waitTime.toNumber());
+        await velo.testing.increaseTime(waitTime.toNumber());
       }
-      let yam_underlying_bal = yam.toBigN(await yam.contracts.yam.methods.balanceOfUnderlying(user).call());
-      await yam.contracts.yam.methods.approve(yam.contracts.yamV2migration.options.address, "10000000000000000000000000000000000").send({from: user, gas: 1000000});
-      await yam.contracts.yamV2migration.methods.migrate().send({from: user, gas: 1000000});
-      let yamV2_ts = yam.toBigN(await yam.contracts.yamV2.methods.totalSupply().call());
-      expect(yamV2_ts.toString()).toBe(yam_underlying_bal.toString());
+      let velo_underlying_bal = velo.toBigN(await velo.contracts.velo.methods.balanceOfUnderlying(user).call());
+      await velo.contracts.velo.methods.approve(velo.contracts.veloV2migration.options.address, "10000000000000000000000000000000000").send({from: user, gas: 1000000});
+      await velo.contracts.veloV2migration.methods.migrate().send({from: user, gas: 1000000});
+      let veloV2_ts = velo.toBigN(await velo.contracts.veloV2.methods.totalSupply().call());
+      expect(veloV2_ts.toString()).toBe(velo_underlying_bal.toString());
     });
   });
 });

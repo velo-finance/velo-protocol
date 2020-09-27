@@ -31,7 +31,7 @@ const FAQ: React.FC = () => {
             <StyledHeading>How will delegators be rewarded?</StyledHeading>
             <StyledList>
               <StyledListItem>Members of the community will submit proposals to reward those who delegated votes to help save VELO.These proposals will be subject to tokenholder approval.</StyledListItem>
-              <StyledListItem>You can view snapshotted votes at the time of governance proposal <a href="https://raw.githubusercontent.com/yam-finance/yam-protocol/master/yam_delegator_snapshot_10650187_draft.json">here.</a></StyledListItem>
+              <StyledListItem>You can view snapshotted votes at the time of governance proposal <a href="https://raw.githubusercontent.com/velo-finance/velo-protocol/master/velo_delegator_snapshot_10650187_draft.json">here.</a></StyledListItem>
             </StyledList>
             <StyledHeading>4. Can I continue to farm VELOv1?</StyledHeading>
             <StyledList>
@@ -54,12 +54,12 @@ const FAQ: React.FC = () => {
             </StyledList>
             <StyledHeading>Additional Resources</StyledHeading>
             <StyledList>
-              <StyledListItem><a href="https://medium.com/@yamfinance/yam-finance-d0ad577250c7">Intro post</a></StyledListItem>
-              <StyledListItem><a href="https://medium.com/@yamfinance/yam-migration-plan-dc72ad49aca6">Migration plan</a></StyledListItem>
-              <StyledListItem><a href="https://medium.com/@yamfinance/yam-post-rescue-attempt-update-c9c90c05953f">Initial post-mortem and bug explanation</a></StyledListItem>
+              <StyledListItem><a href="https://medium.com/@velofinance/velo-finance-d0ad577250c7">Intro post</a></StyledListItem>
+              <StyledListItem><a href="https://medium.com/@velofinance/velo-migration-plan-dc72ad49aca6">Migration plan</a></StyledListItem>
+              <StyledListItem><a href="https://medium.com/@velofinance/velo-post-rescue-attempt-update-c9c90c05953f">Initial post-mortem and bug explanation</a></StyledListItem>
             </StyledList>
             <StyledHeading>Community-built resource for protocol information</StyledHeading>
-            <a href="https://yam.chainwiki.dev/en/home">https://yam.chainwiki.dev/en/home</a>
+            <a href="https://velo.chainwiki.dev/en/home">https://velo.chainwiki.dev/en/home</a>
           </CardContent>
         </Card>
       </Container>

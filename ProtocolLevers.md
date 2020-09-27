@@ -21,7 +21,7 @@ address that controls every permissioned function, or is primed to.
 #### `rebaser`
 ##### File: `VELOTokenStorage.sol`
 ##### Description
-address that controls the rebasing functionality. This contract is one of two contracts that can `mint`. It also tells how much to change `yamsScalingFactor`.
+address that controls the rebasing functionality. This contract is one of two contracts that can `mint`. It also tells how much to change `velosScalingFactor`.
 ##### Setting
 ###### File: `VELO.sol`
 `_setRebaser(address)`: sets `rebaser` to new address.

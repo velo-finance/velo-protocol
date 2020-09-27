@@ -16,7 +16,7 @@ export class Account {
   }
 
   async getVELOWalletBalance() {
-    this.walletInfo["DAI"] = await this.contracts.yam.methods.balanceOf(this.accountInfo).call();
+    this.walletInfo["DAI"] = await this.contracts.velo.methods.balanceOf(this.accountInfo).call();
     return this.walletInfo["DAI"]
   }
 

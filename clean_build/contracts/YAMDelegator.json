@@ -567,7 +567,7 @@
         {
             "constant": true,
             "inputs": [],
-            "name": "yamsScalingFactor",
+            "name": "velosScalingFactor",
             "outputs": [
                 {
                     "internalType": "uint256",

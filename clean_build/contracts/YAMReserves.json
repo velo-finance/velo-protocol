@@ -9,7 +9,7 @@
                 },
                 {
                     "internalType": "address",
-                    "name": "yamAddress_",
+                    "name": "veloAddress_",
                     "type": "address"
                 }
             ],
@@ -137,7 +137,7 @@
         {
             "constant": true,
             "inputs": [],
-            "name": "yamAddress",
+            "name": "veloAddress",
             "outputs": [
                 {
                     "internalType": "address",

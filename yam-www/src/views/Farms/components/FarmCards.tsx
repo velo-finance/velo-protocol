@@ -17,7 +17,7 @@ import useYam from '../../../hooks/useYam'
 import { Farm } from '../../../contexts/Farms'
 
 import { bnToDec } from '../../../utils'
-import { getEarned, getPoolStartTime } from '../../../yamUtils'
+import { getEarned, getPoolStartTime } from '../../../veloUtils'
 
 const FarmCards: React.FC = () => {
   const [farms] = useFarms()
@@ -62,7 +62,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
 
   const { contract } = farm
   const { account } = useWallet()
-  const yam = useYam()
+  const velo = useYam()
 
   const getStartTime = useCallback(async () => {
     const startTime = await getPoolStartTime(farm.contract)
@@ -80,25 +80,25 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
   }
 
   useEffect(() => {
-    if (farm && farm.id === 'ycrv_yam_uni_lp') {
+    if (farm && farm.id === 'ycrv_velo_uni_lp') {
       getStartTime()
     }
   }, [farm, getStartTime])
 
   useEffect(() => {
     async function fetchEarned () {
-      const earned = await getEarned(yam, contract, account)
+      const earned = await getEarned(velo, contract, account)
       setHarvestable(bnToDec(earned))
     }
-    if (yam && account) {
+    if (velo && account) {
       fetchEarned()
     }
-  }, [yam, contract, account, setHarvestable])
+  }, [velo, contract, account, setHarvestable])
   
   const poolActive = startTime * 1000 - Date.now() <= 0
   return (
     <StyledCardWrapper>
-      {farm.id === 'ycrv_yam_uni_lp' && (
+      {farm.id === 'ycrv_velo_uni_lp' && (
         <StyledCardAccent />
       )}
       <Card>

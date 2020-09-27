@@ -11,7 +11,7 @@ import {
 } from "../lib/Helpers.js"
 
 
-export const yam = new Yam(
+export const velo = new Yam(
   "http://localhost:8545/",
   // "http://127.0.0.1:9545/",
   "1001",
@@ -33,124 +33,124 @@ describe("post-deployment", () => {
   let user;
 
   beforeAll(async () => {
-    const accounts = await yam.web3.eth.getAccounts();
-    yam.addAccount(accounts[0]);
+    const accounts = await velo.web3.eth.getAccounts();
+    velo.addAccount(accounts[0]);
     user = accounts[0];
-    snapshotId = await yam.testing.snapshot();
+    snapshotId = await velo.testing.snapshot();
   });
 
   beforeEach(async () => {
-    await yam.testing.resetEVM("0x2");
+    await velo.testing.resetEVM("0x2");
   });
 
   describe("supply ownership", () => {
 
     test("owner balance", async () => {
-      let balance = await yam.contracts.yam.methods.balanceOf(user).call();
-      expect(balance).toBe(yam.toBigN(7000000).times(yam.toBigN(10**18)).toString())
+      let balance = await velo.contracts.velo.methods.balanceOf(user).call();
+      expect(balance).toBe(velo.toBigN(7000000).times(velo.toBigN(10**18)).toString())
     });
 
     test("pool balances", async () => {
-      let ycrv_balance = await yam.contracts.yam.methods.balanceOf(yam.contracts.ycrv_pool.options.address).call();
+      let ycrv_balance = await velo.contracts.velo.methods.balanceOf(velo.contracts.ycrv_pool.options.address).call();
 
-      expect(ycrv_balance).toBe(yam.toBigN(1500000).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
+      expect(ycrv_balance).toBe(velo.toBigN(1500000).times(velo.toBigN(10**18)).times(velo.toBigN(1)).toString())
 
-      let yfi_balance = await yam.contracts.yam.methods.balanceOf(yam.contracts.yfi_pool.options.address).call();
+      let yfi_balance = await velo.contracts.velo.methods.balanceOf(velo.contracts.yfi_pool.options.address).call();
 
-      expect(yfi_balance).toBe(yam.toBigN(250000).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
+      expect(yfi_balance).toBe(velo.toBigN(250000).times(velo.toBigN(10**18)).times(velo.toBigN(1)).toString())
 
-      let ampl_balance = await yam.contracts.yam.methods.balanceOf(yam.contracts.ampl_pool.options.address).call();
+      let ampl_balance = await velo.contracts.velo.methods.balanceOf(velo.contracts.ampl_pool.options.address).call();
 
-      expect(ampl_balance).toBe(yam.toBigN(250000).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
+      expect(ampl_balance).toBe(velo.toBigN(250000).times(velo.toBigN(10**18)).times(velo.toBigN(1)).toString())
 
-      let eth_balance = await yam.contracts.yam.methods.balanceOf(yam.contracts.eth_pool.options.address).call();
+      let eth_balance = await velo.contracts.velo.methods.balanceOf(velo.contracts.eth_pool.options.address).call();
 
-      expect(eth_balance).toBe(yam.toBigN(250000).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
+      expect(eth_balance).toBe(velo.toBigN(250000).times(velo.toBigN(10**18)).times(velo.toBigN(1)).toString())
 
-      let snx_balance = await yam.contracts.yam.methods.balanceOf(yam.contracts.snx_pool.options.address).call();
+      let snx_balance = await velo.contracts.velo.methods.balanceOf(velo.contracts.snx_pool.options.address).call();
 
-      expect(snx_balance).toBe(yam.toBigN(250000).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
+      expect(snx_balance).toBe(velo.toBigN(250000).times(velo.toBigN(10**18)).times(velo.toBigN(1)).toString())
 
-      let comp_balance = await yam.contracts.yam.methods.balanceOf(yam.contracts.comp_pool.options.address).call();
+      let comp_balance = await velo.contracts.velo.methods.balanceOf(velo.contracts.comp_pool.options.address).call();
 
-      expect(comp_balance).toBe(yam.toBigN(250000).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
+      expect(comp_balance).toBe(velo.toBigN(250000).times(velo.toBigN(10**18)).times(velo.toBigN(1)).toString())
 
-      let lend_balance = await yam.contracts.yam.methods.balanceOf(yam.contracts.lend_pool.options.address).call();
+      let lend_balance = await velo.contracts.velo.methods.balanceOf(velo.contracts.lend_pool.options.address).call();
 
-      expect(lend_balance).toBe(yam.toBigN(250000).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
+      expect(lend_balance).toBe(velo.toBigN(250000).times(velo.toBigN(10**18)).times(velo.toBigN(1)).toString())
 
-      let link_balance = await yam.contracts.yam.methods.balanceOf(yam.contracts.link_pool.options.address).call();
+      let link_balance = await velo.contracts.velo.methods.balanceOf(velo.contracts.link_pool.options.address).call();
 
-      expect(link_balance).toBe(yam.toBigN(250000).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
+      expect(link_balance).toBe(velo.toBigN(250000).times(velo.toBigN(10**18)).times(velo.toBigN(1)).toString())
 
-      let mkr_balance = await yam.contracts.yam.methods.balanceOf(yam.contracts.mkr_pool.options.address).call();
+      let mkr_balance = await velo.contracts.velo.methods.balanceOf(velo.contracts.mkr_pool.options.address).call();
 
-      expect(mkr_balance).toBe(yam.toBigN(250000).times(yam.toBigN(10**18)).times(yam.toBigN(1)).toString())
+      expect(mkr_balance).toBe(velo.toBigN(250000).times(velo.toBigN(10**18)).times(velo.toBigN(1)).toString())
 
     });
 
     test("total supply", async () => {
-      let ts = await yam.contracts.yam.methods.totalSupply().call();
+      let ts = await velo.contracts.velo.methods.totalSupply().call();
       expect(ts).toBe("10500000000000000000000000")
     });
 
     test("init supply", async () => {
-      let init_s = await yam.contracts.yam.methods.initSupply().call();
+      let init_s = await velo.contracts.velo.methods.initSupply().call();
       expect(init_s).toBe("10500000000000000000000000000000")
     });
   });
 
   describe("contract ownership", () => {
 
-    test("yam gov", async () => {
-      let gov = await yam.contracts.yam.methods.gov().call();
-      expect(gov).toBe(yam.contracts.timelock.options.address)
+    test("velo gov", async () => {
+      let gov = await velo.contracts.velo.methods.gov().call();
+      expect(gov).toBe(velo.contracts.timelock.options.address)
     });
 
     test("rebaser gov", async () => {
-      let gov = await yam.contracts.rebaser.methods.gov().call();
-      expect(gov).toBe(yam.contracts.timelock.options.address)
+      let gov = await velo.contracts.rebaser.methods.gov().call();
+      expect(gov).toBe(velo.contracts.timelock.options.address)
     });
 
     test("reserves gov", async () => {
-      let gov = await yam.contracts.reserves.methods.gov().call();
-      expect(gov).toBe(yam.contracts.timelock.options.address)
+      let gov = await velo.contracts.reserves.methods.gov().call();
+      expect(gov).toBe(velo.contracts.timelock.options.address)
     });
 
     test("timelock admin", async () => {
-      let gov = await yam.contracts.timelock.methods.admin().call();
-      expect(gov).toBe(yam.contracts.gov.options.address)
+      let gov = await velo.contracts.timelock.methods.admin().call();
+      expect(gov).toBe(velo.contracts.gov.options.address)
     });
 
     test("gov timelock", async () => {
-      let tl = await yam.contracts.gov.methods.timelock().call();
-      expect(tl).toBe(yam.contracts.timelock.options.address)
+      let tl = await velo.contracts.gov.methods.timelock().call();
+      expect(tl).toBe(velo.contracts.timelock.options.address)
     });
 
     test("gov guardian", async () => {
-      let grd = await yam.contracts.gov.methods.guardian().call();
+      let grd = await velo.contracts.gov.methods.guardian().call();
       expect(grd).toBe("0x0000000000000000000000000000000000000000")
     });
 
     test("pool owner", async () => {
-      let owner = await yam.contracts.eth_pool.methods.owner().call();
-      expect(owner).toBe(yam.contracts.timelock.options.address)
+      let owner = await velo.contracts.eth_pool.methods.owner().call();
+      expect(owner).toBe(velo.contracts.timelock.options.address)
     });
 
     test("incentives owner", async () => {
-      let owner = await yam.contracts.ycrv_pool.methods.owner().call();
-      expect(owner).toBe(yam.contracts.timelock.options.address)
+      let owner = await velo.contracts.ycrv_pool.methods.owner().call();
+      expect(owner).toBe(velo.contracts.timelock.options.address)
     });
 
     test("pool rewarder", async () => {
-      let rewarder = await yam.contracts.eth_pool.methods.rewardDistribution().call();
-      expect(rewarder).toBe(yam.contracts.timelock.options.address)
+      let rewarder = await velo.contracts.eth_pool.methods.rewardDistribution().call();
+      expect(rewarder).toBe(velo.contracts.timelock.options.address)
     });
   });
 
   describe("timelock delay initiated", () => {
     test("timelock delay initiated", async () => {
-      let inited = await yam.contracts.timelock.methods.admin_initialized().call();
+      let inited = await velo.contracts.timelock.methods.admin_initialized().call();
       expect(inited).toBe(true);
     })
   })

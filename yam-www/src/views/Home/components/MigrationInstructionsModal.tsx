@@ -13,7 +13,7 @@ import Separator from '../../../components/Separator'
 import Spacer from '../../../components/Spacer'
 import WalletProviderModal from '../../../components/WalletProviderModal'
 
-import { yam as yamV1Address } from '../../../constants/tokenAddresses'
+import { velo as veloV1Address } from '../../../constants/tokenAddresses'
 
 import useAllowance from '../../../hooks/useAllowance'
 import useApprove from '../../../hooks/useApprove'
@@ -32,12 +32,12 @@ const MigrationInstructionsModal: React.FC<ModalProps> = ({ onDismiss }) => {
   const { account, ethereum } = useWallet()
   const hasHarvested = !!account && !harvested
 
-  const yam = useYam()
-  const yamTokenContract = useMemo(() => getContract(ethereum as provider, yamV1Address), [])
-  const migrationContract = yam ? (yam as any).contracts.yamV2migration : undefined
+  const velo = useYam()
+  const veloTokenContract = useMemo(() => getContract(ethereum as provider, veloV1Address), [])
+  const migrationContract = velo ? (velo as any).contracts.veloV2migration : undefined
 
-  const allowance = useAllowance(yamTokenContract, migrationContract)
-  const { onApprove } = useApprove(yamTokenContract, migrationContract)
+  const allowance = useAllowance(veloTokenContract, migrationContract)
+  const { onApprove } = useApprove(veloTokenContract, migrationContract)
   const hasApproved = !!allowance.toNumber()
 
   const handleApprove = useCallback(async () => {

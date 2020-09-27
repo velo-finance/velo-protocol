@@ -2,29 +2,29 @@ import React, { createContext, useEffect, useState } from 'react'
 
 import { useWallet } from 'use-wallet'
 
-import { Yam } from '../../yam'
+import { Yam } from '../../velo'
 
 export interface YamContext {
-  yam?: typeof Yam
+  velo?: typeof Yam
 }
 
 export const Context = createContext<YamContext>({
-  yam: undefined,
+  velo: undefined,
 })
 
 declare global {
   interface Window {
-    yamsauce: any
+    velosauce: any
   }
 }
 
 const YamProvider: React.FC = ({ children }) => {
   const { ethereum } = useWallet()
-  const [yam, setYam] = useState<any>()
+  const [velo, setYam] = useState<any>()
 
   useEffect(() => {
     if (ethereum) {
-      const yamLib = new Yam(
+      const veloLib = new Yam(
         ethereum,
         "1",
         false, {
@@ -38,13 +38,13 @@ const YamProvider: React.FC = ({ children }) => {
           ethereumNodeTimeout: 10000
         }
       )
-      setYam(yamLib)
-      window.yamsauce = yamLib
+      setYam(veloLib)
+      window.velosauce = veloLib
     }
   }, [ethereum])
 
   return (
-    <Context.Provider value={{ yam }}>
+    <Context.Provider value={{ velo }}>
       {children}
     </Context.Provider>
   )

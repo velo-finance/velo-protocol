@@ -3,7 +3,7 @@ import { useCallback } from 'react'
 import { useWallet } from 'use-wallet'
 import { Contract } from "web3-eth-contract"
 
-import { stake } from '../yamUtils'
+import { stake } from '../veloUtils'
 
 const useStake = (poolContract: Contract, tokenName: string) => {
   const { account } = useWallet()
