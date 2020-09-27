@@ -282,17 +282,17 @@ contract VELOToken is VELOGovernanceToken {
         feeCharger = feeCharger_;
     }
 
-    /** @notice sets the incentivizer
-     * @param incentivizer_ The address of the rebaser contract to use for authentication.
-     */
-    function _setIncentivizer(address incentivizer_)
-        external
-        onlyGov
-    {
-        address oldIncentivizer = incentivizer;
-        incentivizer = incentivizer_;
-        emit NewIncentivizer(oldIncentivizer, incentivizer_);
-    }
+    // /** @notice sets the incentivizer
+    //  * @param incentivizer_ The address of the rebaser contract to use for authentication.
+    //  */
+    // function _setIncentivizer(address incentivizer_)
+    //     external
+    //     onlyGov
+    // {
+    //     address oldIncentivizer = incentivizer;
+    //     incentivizer = incentivizer_;
+    //     emit NewIncentivizer(oldIncentivizer, incentivizer_);
+    // }
 
     /** @notice sets the pendingGov
      * @param pendingGov_ The address of the rebaser contract to use for authentication.
