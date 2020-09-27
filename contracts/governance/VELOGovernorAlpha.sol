@@ -2,7 +2,7 @@ pragma solidity ^0.5.17;
 pragma experimental ABIEncoderV2;
 
 // Original work from Compound: https://github.com/compound-finance/compound-protocol/blob/master/contracts/Governance/GovernorAlpha.sol
-// Modified to work in the YAM system
+// Modified to work in the VELO system
 
 // all votes work on underlying _yamBalances[address], not balanceOf(address)
 
@@ -17,23 +17,23 @@ pragma experimental ABIEncoderV2;
 //        Queued proposal with repeated actions cannot be executed
 //        Fixed by explicitly disallow proposals with repeated actions to be queued in the Timelock contract.
 //
-// Changes made by YAM after audit:
+// Changes made by VELO after audit:
 //    Formatting, naming, & uint256 instead of uint
-//    Since YAM supply changes, updated quorum & proposal requirements
-//    If any uint96, changed to uint256 to match YAM as opposed to comp
+//    Since VELO supply changes, updated quorum & proposal requirements
+//    If any uint96, changed to uint256 to match VELO as opposed to comp
 
 
 import "../lib/SafeMath.sol";
 
 contract GovernorAlpha {
     /// @notice The name of this contract
-    string public constant name = "YAM Governor Alpha";
+    string public constant name = "VELO Governor Alpha";
 
     /// @notice The number of votes in support of a proposal required in order for a quorum to be reached and for a vote to succeed
-    function quorumVotes() public view returns (uint256) { return SafeMath.div(SafeMath.mul(yam.initSupply(), 4), 100); } // 4% of YAM
+    function quorumVotes() public view returns (uint256) { return SafeMath.div(SafeMath.mul(yam.initSupply(), 4), 100); } // 4% of VELO
 
     /// @notice The number of votes required in order for a voter to become a proposer
-    function proposalThreshold() public view returns (uint256) { return SafeMath.div(yam.initSupply(), 100); } // 1% of YAM
+    function proposalThreshold() public view returns (uint256) { return SafeMath.div(yam.initSupply(), 100); } // 1% of VELO
 
     /// @notice The maximum number of actions that can be included in a proposal
     function proposalMaxOperations() public pure returns (uint256) { return 10; } // 10 actions
@@ -48,7 +48,7 @@ contract GovernorAlpha {
     TimelockInterface public timelock;
 
     /// @notice The address of the Compound governance token
-    YAMInterface public yam;
+    VELOInterface public yam;
 
     /// @notice The address of the Governor Guardian
     address public guardian;
@@ -153,7 +153,7 @@ contract GovernorAlpha {
 
     constructor(address timelock_, address yam_) public {
         timelock = TimelockInterface(timelock_);
-        yam = YAMInterface(yam_);
+        yam = VELOInterface(yam_);
         guardian = msg.sender;
     }
 
@@ -472,7 +472,7 @@ interface TimelockInterface {
     function executeTransaction(address target, uint256 value, string calldata signature, bytes calldata data, uint256 eta) external payable returns (bytes memory);
 }
 
-interface YAMInterface {
+interface VELOInterface {
     function getPriorVotes(address account, uint256 blockNumber) external view returns (uint256);
     function initSupply() external view returns (uint256);
     function _acceptGov() external;

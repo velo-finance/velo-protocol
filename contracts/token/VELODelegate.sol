@@ -1,15 +1,15 @@
 pragma solidity 0.5.17;
 
-import "./YAM.sol";
+import "./VELO.sol";
 
-contract YAMDelegationStorage {
+contract VELODelegationStorage {
     /**
      * @notice Implementation address for this contract
      */
     address public implementation;
 }
 
-contract YAMDelegatorInterface is YAMDelegationStorage {
+contract VELODelegatorInterface is VELODelegationStorage {
     /**
      * @notice Emitted when implementation is changed
      */
@@ -24,7 +24,7 @@ contract YAMDelegatorInterface is YAMDelegationStorage {
     function _setImplementation(address implementation_, bool allowResign, bytes memory becomeImplementationData) public;
 }
 
-contract YAMDelegateInterface is YAMDelegationStorage {
+contract VELODelegateInterface is VELODelegationStorage {
     /**
      * @notice Called by the delegator on a delegate to initialize it for duty
      * @dev Should revert if any issues arise which make it unfit for delegation
@@ -39,7 +39,7 @@ contract YAMDelegateInterface is YAMDelegationStorage {
 }
 
 
-contract YAMDelegate is YAM, YAMDelegateInterface {
+contract VELODelegate is VELO, VELODelegateInterface {
     /**
      * @notice Construct an empty delegate
      */

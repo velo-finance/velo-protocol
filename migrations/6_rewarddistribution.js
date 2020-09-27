@@ -5,29 +5,29 @@ var fs = require('fs')
 
 // Protocol
 // deployed second
-const YAMImplementation = artifacts.require("YAMDelegate");
-const YAMProxy = artifacts.require("YAMDelegator");
+const VELOImplementation = artifacts.require("VELODelegate");
+const VELOProxy = artifacts.require("VELODelegator");
 
 // deployed third
-const YAMReserves = artifacts.require("YAMReserves");
-const YAMRebaser = artifacts.require("YAMRebaser");
+const VELOReserves = artifacts.require("VELOReserves");
+const VELORebaser = artifacts.require("VELORebaser");
 
 const Gov = artifacts.require("GovernorAlpha");
 const Timelock = artifacts.require("Timelock");
 
 // deployed fourth
-const YAM_ETHPool = artifacts.require("YAMETHPool");
-const YAM_uAMPLPool = artifacts.require("YAMAMPLPool");
-const YAM_YFIPool = artifacts.require("YAMYFIPool");
-const YAM_LINKPool = artifacts.require("YAMLINKPool");
-const YAM_MKRPool = artifacts.require("YAMMKRPool");
-const YAM_LENDPool = artifacts.require("YAMLENDPool");
-const YAM_COMPPool = artifacts.require("YAMCOMPPool");
-const YAM_SNXPool = artifacts.require("YAMSNXPool");
+const VELO_ETHPool = artifacts.require("VELOETHPool");
+const VELO_uAMPLPool = artifacts.require("VELOAMPLPool");
+const VELO_YFIPool = artifacts.require("VELOYFIPool");
+const VELO_LINKPool = artifacts.require("VELOLINKPool");
+const VELO_MKRPool = artifacts.require("VELOMKRPool");
+const VELO_LENDPool = artifacts.require("VELOLENDPool");
+const VELO_COMPPool = artifacts.require("VELOCOMPPool");
+const VELO_SNXPool = artifacts.require("VELOSNXPool");
 
 
 // deployed fifth
-const YAMIncentivizer = artifacts.require("YAMIncentivizer");
+const VELOIncentivizer = artifacts.require("VELOIncentivizer");
 
 // ============ Main Migration ============
 
@@ -46,22 +46,22 @@ module.exports = migration;
 
 async function deployDistribution(deployer, network, accounts) {
   console.log(network)
-  let yam = await YAMProxy.deployed();
-  let yReserves = await YAMReserves.deployed()
-  let yRebaser = await YAMRebaser.deployed()
+  let yam = await VELOProxy.deployed();
+  let yReserves = await VELOReserves.deployed()
+  let yRebaser = await VELORebaser.deployed()
   let tl = await Timelock.deployed();
   let gov = await Gov.deployed();
   if (network != "test") {
 
-    let eth_pool = new web3.eth.Contract(YAM_ETHPool.abi, YAM_ETHPool.address);
-    let ampl_pool = new web3.eth.Contract(YAM_uAMPLPool.abi, YAM_uAMPLPool.address);
-    let yfi_pool = new web3.eth.Contract(YAM_YFIPool.abi, YAM_YFIPool.address);
-    let lend_pool = new web3.eth.Contract(YAM_LENDPool.abi, YAM_LENDPool.address);
-    let mkr_pool = new web3.eth.Contract(YAM_MKRPool.abi, YAM_MKRPool.address);
-    let snx_pool = new web3.eth.Contract(YAM_SNXPool.abi, YAM_SNXPool.address);
-    let comp_pool = new web3.eth.Contract(YAM_COMPPool.abi, YAM_COMPPool.address);
-    let link_pool = new web3.eth.Contract(YAM_LINKPool.abi, YAM_LINKPool.address);
-    let ycrv_pool = new web3.eth.Contract(YAMIncentivizer.abi, YAMIncentivizer.address);
+    let eth_pool = new web3.eth.Contract(VELO_ETHPool.abi, VELO_ETHPool.address);
+    let ampl_pool = new web3.eth.Contract(VELO_uAMPLPool.abi, VELO_uAMPLPool.address);
+    let yfi_pool = new web3.eth.Contract(VELO_YFIPool.abi, VELO_YFIPool.address);
+    let lend_pool = new web3.eth.Contract(VELO_LENDPool.abi, VELO_LENDPool.address);
+    let mkr_pool = new web3.eth.Contract(VELO_MKRPool.abi, VELO_MKRPool.address);
+    let snx_pool = new web3.eth.Contract(VELO_SNXPool.abi, VELO_SNXPool.address);
+    let comp_pool = new web3.eth.Contract(VELO_COMPPool.abi, VELO_COMPPool.address);
+    let link_pool = new web3.eth.Contract(VELO_LINKPool.abi, VELO_LINKPool.address);
+    let ycrv_pool = new web3.eth.Contract(VELOIncentivizer.abi, VELOIncentivizer.address);
 
     console.log("setting distributor");
     await Promise.all([
@@ -83,15 +83,15 @@ async function deployDistribution(deployer, network, accounts) {
     console.log("transfering and notifying");
     console.log("eth");
     await Promise.all([
-      yam.transfer(YAM_ETHPool.address, two_fifty.toString()),
-      yam.transfer(YAM_uAMPLPool.address, two_fifty.toString()),
-      yam.transfer(YAM_YFIPool.address, two_fifty.toString()),
-      yam.transfer(YAM_LENDPool.address, two_fifty.toString()),
-      yam.transfer(YAM_MKRPool.address, two_fifty.toString()),
-      yam.transfer(YAM_SNXPool.address, two_fifty.toString()),
-      yam.transfer(YAM_COMPPool.address, two_fifty.toString()),
-      yam.transfer(YAM_LINKPool.address, two_fifty.toString()),
-      yam._setIncentivizer(YAMIncentivizer.address),
+      yam.transfer(VELO_ETHPool.address, two_fifty.toString()),
+      yam.transfer(VELO_uAMPLPool.address, two_fifty.toString()),
+      yam.transfer(VELO_YFIPool.address, two_fifty.toString()),
+      yam.transfer(VELO_LENDPool.address, two_fifty.toString()),
+      yam.transfer(VELO_MKRPool.address, two_fifty.toString()),
+      yam.transfer(VELO_SNXPool.address, two_fifty.toString()),
+      yam.transfer(VELO_COMPPool.address, two_fifty.toString()),
+      yam.transfer(VELO_LINKPool.address, two_fifty.toString()),
+      yam._setIncentivizer(VELOIncentivizer.address),
     ]);
 
     await Promise.all([
@@ -140,7 +140,7 @@ async function deployDistribution(deployer, network, accounts) {
 
   await Promise.all([
       tl.executeTransaction(
-        YAMProxy.address,
+        VELOProxy.address,
         0,
         "_acceptGov()",
         "0x",
@@ -148,7 +148,7 @@ async function deployDistribution(deployer, network, accounts) {
       ),
 
       tl.executeTransaction(
-        YAMReserves.address,
+        VELOReserves.address,
         0,
         "_acceptGov()",
         "0x",
@@ -156,7 +156,7 @@ async function deployDistribution(deployer, network, accounts) {
       ),
 
       tl.executeTransaction(
-        YAMRebaser.address,
+        VELORebaser.address,
         0,
         "_acceptGov()",
         "0x",

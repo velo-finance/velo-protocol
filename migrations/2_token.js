@@ -2,8 +2,8 @@
 
 // Token
 // deployed first
-const YAMImplementation = artifacts.require("YAMDelegate");
-const YAMProxy = artifacts.require("YAMDelegator");
+const VELOImplementation = artifacts.require("VELODelegate");
+const VELOProxy = artifacts.require("VELODelegator");
 
 // ============ Main Migration ============
 
@@ -19,23 +19,23 @@ module.exports = migration;
 
 
 async function deployToken(deployer, network) {
-  await deployer.deploy(YAMImplementation);
+  await deployer.deploy(VELOImplementation);
   if (network != "mainnet") {
-    await deployer.deploy(YAMProxy,
-      "YAM",
-      "YAM",
+    await deployer.deploy(VELOProxy,
+      "VELO",
+      "VELO",
       18,
       "9000000000000000000000000", // print extra few mil for user
-      YAMImplementation.address,
+      VELOImplementation.address,
       "0x"
     );
   } else {
-    await deployer.deploy(YAMProxy,
-      "YAM",
-      "YAM",
+    await deployer.deploy(VELOProxy,
+      "VELO",
+      "VELO",
       18,
       "2000000000000000000000000",
-      YAMImplementation.address,
+      VELOImplementation.address,
       "0x"
     );
   }

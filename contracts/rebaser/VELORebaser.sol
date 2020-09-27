@@ -3,7 +3,7 @@ pragma experimental ABIEncoderV2;
 
 import "../lib/SafeERC20.sol";
 import "../lib/SafeMath.sol";
-import {YAMTokenInterface as IVELO} from "../token/YAMTokenInterface.sol";
+import {VELOTokenInterface as IVELO} from "../token/VELOTokenInterface.sol";
 
 contract VELORebaser {
     using SafeMath for uint256;

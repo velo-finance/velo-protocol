@@ -36,8 +36,8 @@ const oneEther = 10 ** 18;
 
 const EIP712 = require('./EIP712.js');
 
-describe('YAM governance', () => {
-  let name = "YAM";
+describe('VELO governance', () => {
+  let name = "VELO";
   let chainId = 1001;
   let snapshotId;
   let user;
@@ -69,7 +69,7 @@ describe('YAM governance', () => {
     const pvk_a1 = "0x5d862464fe9303452126c8bc94274b8c5f9874cbd219789b3eb2128075a76f72";
     test('reverts if the signatory is invalid', async () => {
       const delegatee = user, nonce = 0, expiry = 0;
-      await yam.testing.expectThrow(yam.contracts.yam.methods.delegateBySig(delegatee, nonce, expiry, 0, '0xbad', '0xbad').send({from: a1}), "YAM::delegateBySig: invalid signature");
+      await yam.testing.expectThrow(yam.contracts.yam.methods.delegateBySig(delegatee, nonce, expiry, 0, '0xbad', '0xbad').send({from: a1}), "VELO::delegateBySig: invalid signature");
     });
 
     test('reverts if the nonce is bad ', async () => {
@@ -91,7 +91,7 @@ describe('YAM governance', () => {
            },
            primaryType: 'Delegation',
            domain: {
-               name: 'YAM',
+               name: 'VELO',
                chainId: 1, // since we are using --fork, it respects that chainID
                verifyingContract: '0x4BC6657283f8f24e27EAc1D21D1deE566C534A9A',
            },
@@ -108,7 +108,7 @@ describe('YAM governance', () => {
 
       // const encoded = EIP712.signer.encodeMessageData(delegation.types, delegation.primaryType, delegation.message);
 
-      await yam.testing.expectThrow(yam.contracts.yam.methods.delegateBySig(user, 1, 0, sig.v, sig.r, sig.s).send({from: a1}), "YAM::delegateBySig: invalid nonce");
+      await yam.testing.expectThrow(yam.contracts.yam.methods.delegateBySig(user, 1, 0, sig.v, sig.r, sig.s).send({from: a1}), "VELO::delegateBySig: invalid nonce");
     });
 
     test('reverts if the signature has expired', async () => {
@@ -130,7 +130,7 @@ describe('YAM governance', () => {
            },
            primaryType: 'Delegation',
            domain: {
-               name: 'YAM',
+               name: 'VELO',
                chainId: 1,
                verifyingContract: '0x4BC6657283f8f24e27EAc1D21D1deE566C534A9A',
            },
@@ -145,7 +145,7 @@ describe('YAM governance', () => {
       const sig = ethUtil.ecsign(ethUtil.toBuffer(sigHash, 'hex'), ethUtil.toBuffer(pvk_a1, 'hex'));
 
 
-      await yam.testing.expectThrow(yam.contracts.yam.methods.delegateBySig(user, 0, 0, sig.v, sig.r, sig.s).send({from: a1}), "YAM::delegateBySig: signature expired");
+      await yam.testing.expectThrow(yam.contracts.yam.methods.delegateBySig(user, 0, 0, sig.v, sig.r, sig.s).send({from: a1}), "VELO::delegateBySig: signature expired");
     });
 
     test('delegates on behalf of the signatory', async () => {
@@ -165,7 +165,7 @@ describe('YAM governance', () => {
            },
            primaryType: 'Delegation',
            domain: {
-               name: 'YAM',
+               name: 'VELO',
                chainId: 1,
                verifyingContract: '0x4BC6657283f8f24e27EAc1D21D1deE566C534A9A',
            },
@@ -289,7 +289,7 @@ describe('YAM governance', () => {
     test('reverts if block number >= current block', async () => {
       await yam.testing.expectThrow(
         yam.contracts.yam.methods.getPriorVotes(a1, 5e10).call(),
-        "YAM::getPriorVotes: not yet determined"
+        "VELO::getPriorVotes: not yet determined"
       )
     });
 

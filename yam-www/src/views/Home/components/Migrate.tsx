@@ -118,14 +118,14 @@ const Migrate: React.FC = () => {
           <StyledBalances>
             <StyledBalance>
               <Value value={yamV1Balance ? numeral(yamV1Balance).format('0.00a') : '--'} />
-              <Label text="Burn YAMV1" />
+              <Label text="Burn VELOV1" />
             </StyledBalance>
             <div style={{ alignSelf: 'stretch' }}>
             <Separator orientation="vertical" />
             </div>
             <StyledBalance>
               <Value value={yamV2ReceiveAmount ? numeral(yamV2ReceiveAmount).format('0.00a') : '--'} />
-              <Label text="Mint YAMV2" />
+              <Label text="Mint VELOV2" />
             </StyledBalance>
           </StyledBalances>
           <Spacer size="lg" />
@@ -143,7 +143,7 @@ const Migrate: React.FC = () => {
             />
           )}
           <Spacer />
-          <StyledWarning>WARNING: Burning your YAMV1 tokens for YAMV2 tokens is a permanent action.</StyledWarning>
+          <StyledWarning>WARNING: Burning your VELOV1 tokens for VELOV2 tokens is a permanent action.</StyledWarning>
         </CardContent>
       </Card>
     </StyledMigrateWrapper>

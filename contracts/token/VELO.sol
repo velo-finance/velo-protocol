@@ -1,10 +1,10 @@
 pragma solidity 0.5.17;
 
-/* import "./YAMTokenInterface.sol"; */
-import "./YAMGovernance.sol";
+/* import "./VELOTokenInterface.sol"; */
+import "./VELOGovernance.sol";
 import "../feeCharger/FeeCharger.sol";
 
-contract YAMToken is YAMGovernanceToken {
+contract VELOToken is VELOGovernanceToken {
     // Modifiers
     modifier onlyGov() {
         require(msg.sender == gov);
@@ -321,25 +321,6 @@ contract YAMToken is YAMGovernanceToken {
 
     /* - Extras - */
 
-    /**
-    * @notice Initiates a new rebase operation, provided the minimum time period has elapsed.
-    *
-    * @dev The supply adjustment equals (totalSupply * DeviationFromTargetRate) / rebaseLag
-    *      Where DeviationFromTargetRate is (MarketOracleRate - targetRate) / targetRate
-    *      and targetRate is CpiOracleRate / baseCpi
-    */
-    function rebase(
-        uint256 epoch,
-        uint256 indexDelta,
-        bool positive
-    )
-        external
-        onlyRebaser
-        returns (uint256)
-    {
-        // TODO remove now obsolete
-    }
-
     function rebase(
         uint256 newScalingFactor
     )
@@ -355,10 +336,12 @@ contract YAMToken is YAMGovernanceToken {
         }
 
         yamsScalingFactor = newScalingFactor;
+
+        historicTWVs.push(TWV);
     }
 }
 
-contract YAM is YAMToken {
+contract VELO is VELOToken {
     /**
      * @notice Initialize the new money market
      * @param name_ ERC-20 name of this token

@@ -12,12 +12,12 @@ import {
 } from '../../yamUtils'
 
 const getCurrentPrice = async (yam: typeof Yam): Promise<number> => {
-  // FORBROCK: get current YAM price
+  // FORBROCK: get current VELO price
   return gCP(yam)
 }
 
 const getTargetPrice = async (yam: typeof Yam): Promise<number> => {
-  // FORBROCK: get target YAM price
+  // FORBROCK: get target VELO price
   return gTP(yam)
 }
 

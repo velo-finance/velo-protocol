@@ -112,7 +112,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm }) => {
             </StyledDetails>
             <Spacer />
             <StyledHarvestable>
-              {harvestable ? `${numeral(harvestable).format('0.00a')} YAMs ready to harvest.` : undefined}
+              {harvestable ? `${numeral(harvestable).format('0.00a')} VELOs ready to harvest.` : undefined}
             </StyledHarvestable>
             <Button
               disabled={!poolActive}

@@ -2,8 +2,8 @@ pragma solidity 0.5.17;
 
 import "../lib/SafeMath.sol";
 
-// Storage for a YAM token
-contract YAMTokenStorage {
+// Storage for a VELO token
+contract VELOTokenStorage {
 
     using SafeMath for uint256;
 
@@ -43,12 +43,12 @@ contract YAMTokenStorage {
     address public rebaser;
 
     /**
-     * @notice Reserve address of YAM protocol
+     * @notice Reserve address of VELO protocol
      */
     address public incentivizer;
 
     /**
-     * @notice Total supply of YAMs
+     * @notice Total supply of VELOs
      */
     uint256 public totalSupply;
 
@@ -77,5 +77,7 @@ contract YAMTokenStorage {
     uint256 public TWV;
 
     address public feeCharger;
+
+    uint256[] public historicTWVs;
 
 }

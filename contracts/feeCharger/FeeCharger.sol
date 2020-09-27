@@ -1,12 +1,12 @@
 pragma solidity 0.5.17;
 
 import "../lib/ICHI.sol";
-import "../token/YAMTokenInterface.sol";
+import "../token/VELOTokenInterface.sol";
 
 contract FeeCharger {
 
     ICHI public chi;
-    YAMTokenInterface public velo;
+    VELOTokenInterface public velo;
 
     uint256 public govFactor;
     address public gov;
@@ -18,7 +18,7 @@ contract FeeCharger {
 
     constructor(address chi_, address velo_) public {
         chi = ICHI(chi_);
-        velo = YAMTokenInterface(velo_);
+        velo = VELOTokenInterface(velo_);
         gov = msg.sender;
     }
 

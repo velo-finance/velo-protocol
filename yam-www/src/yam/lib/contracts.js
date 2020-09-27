@@ -4,30 +4,30 @@ import * as Types from "./types.js";
 import { SUBTRACT_GAS_LIMIT, addressMap } from './constants.js';
 
 import ERC20Json from '../clean_build/contracts/IERC20.json';
-import YAMv2Json from '../clean_build/contracts/YAMv2.json';
-import YAMv2MigrationJson from '../clean_build/contracts/YAMv2Migration.json';
-import YAMJson from '../clean_build/contracts/YAMDelegator.json';
-import YAMRebaserJson from '../clean_build/contracts/YAMRebaser.json';
-import YAMReservesJson from '../clean_build/contracts/YAMReserves.json';
-import YAMGovJson from '../clean_build/contracts/GovernorAlpha.json';
-import YAMTimelockJson from '../clean_build/contracts/Timelock.json';
+import VELOv2Json from '../clean_build/contracts/VELOv2.json';
+import VELOv2MigrationJson from '../clean_build/contracts/VELOv2Migration.json';
+import VELOJson from '../clean_build/contracts/VELODelegator.json';
+import VELORebaserJson from '../clean_build/contracts/VELORebaser.json';
+import VELOReservesJson from '../clean_build/contracts/VELOReserves.json';
+import VELOGovJson from '../clean_build/contracts/GovernorAlpha.json';
+import VELOTimelockJson from '../clean_build/contracts/Timelock.json';
 import WETHJson from './weth.json';
 import SNXJson from './snx.json';
 import UNIFactJson from './unifact2.json';
 import UNIPairJson from './uni2.json';
 import UNIRouterJson from './uniR.json';
 
-import WETHPoolJson from '../clean_build/contracts/YAMETHPool.json';
-import AMPLPoolJson from '../clean_build/contracts/YAMAMPLPool.json';
-import YFIPoolJson from '../clean_build/contracts/YAMYFIPool.json';
+import WETHPoolJson from '../clean_build/contracts/VELOETHPool.json';
+import AMPLPoolJson from '../clean_build/contracts/VELOAMPLPool.json';
+import YFIPoolJson from '../clean_build/contracts/VELOYFIPool.json';
 
-import MKRPoolJson from '../clean_build/contracts/YAMMKRPool.json';
-import LENDPoolJson from '../clean_build/contracts/YAMLENDPool.json';
-import COMPPoolJson from '../clean_build/contracts/YAMCOMPPool.json';
-import SNXPoolJson from '../clean_build/contracts/YAMSNXPool.json';
-import LINKPoolJson from '../clean_build/contracts/YAMLINKPool.json';
+import MKRPoolJson from '../clean_build/contracts/VELOMKRPool.json';
+import LENDPoolJson from '../clean_build/contracts/VELOLENDPool.json';
+import COMPPoolJson from '../clean_build/contracts/VELOCOMPPool.json';
+import SNXPoolJson from '../clean_build/contracts/VELOSNXPool.json';
+import LINKPoolJson from '../clean_build/contracts/VELOLINKPool.json';
 
-import IncJson from '../clean_build/contracts/YAMIncentivizer.json';
+import IncJson from '../clean_build/contracts/VELOIncentivizer.json';
 
 export class Contracts {
   constructor(
@@ -49,7 +49,7 @@ export class Contracts {
     this.yfi = new this.web3.eth.Contract(ERC20Json.abi);
     this.UNIAmpl = new this.web3.eth.Contract(ERC20Json.abi);
     this.ycrv = new this.web3.eth.Contract(ERC20Json.abi);
-    this.yam = new this.web3.eth.Contract(YAMJson.abi);
+    this.yam = new this.web3.eth.Contract(VELOJson.abi);
 
     this.yfi_pool = new this.web3.eth.Contract(YFIPoolJson.abi);
     this.eth_pool = new this.web3.eth.Contract(WETHPoolJson.abi);
@@ -73,13 +73,13 @@ export class Contracts {
     this.pool = new this.web3.eth.Contract(LENDPoolJson.abi);
 
 
-    this.yamV2 = new this.web3.eth.Contract(YAMv2Json.abi);
-    this.yamV2migration = new this.web3.eth.Contract(YAMv2MigrationJson.abi);
+    this.yamV2 = new this.web3.eth.Contract(VELOv2Json.abi);
+    this.yamV2migration = new this.web3.eth.Contract(VELOv2MigrationJson.abi);
 
-    this.rebaser = new this.web3.eth.Contract(YAMRebaserJson.abi);
-    this.reserves = new this.web3.eth.Contract(YAMReservesJson.abi);
-    this.gov = new this.web3.eth.Contract(YAMGovJson.abi);
-    this.timelock = new this.web3.eth.Contract(YAMTimelockJson.abi);
+    this.rebaser = new this.web3.eth.Contract(VELORebaserJson.abi);
+    this.reserves = new this.web3.eth.Contract(VELOReservesJson.abi);
+    this.gov = new this.web3.eth.Contract(VELOGovJson.abi);
+    this.timelock = new this.web3.eth.Contract(VELOTimelockJson.abi);
     this.weth = new this.web3.eth.Contract(WETHJson);
     this.setProvider(provider, networkId);
     this.setDefaultAccount(this.web3.eth.defaultAccount);
@@ -96,11 +96,11 @@ export class Contracts {
     this.gov.setProvider(provider);
     this.timelock.setProvider(provider);
     const contracts = [
-      { contract: this.yam, json: YAMJson },
-      { contract: this.rebaser, json: YAMRebaserJson },
-      { contract: this.reserves, json: YAMReservesJson },
-      { contract: this.gov, json: YAMGovJson },
-      { contract: this.timelock, json: YAMTimelockJson },
+      { contract: this.yam, json: VELOJson },
+      { contract: this.rebaser, json: VELORebaserJson },
+      { contract: this.reserves, json: VELOReservesJson },
+      { contract: this.gov, json: VELOGovJson },
+      { contract: this.timelock, json: VELOTimelockJson },
       { contract: this.ycrv_pool, json: IncJson },
       { contract: this.eth_pool, json: WETHPoolJson },
       { contract: this.yfi_pool, json: YFIPoolJson },
@@ -110,8 +110,8 @@ export class Contracts {
       { contract: this.lend_pool, json: LENDPoolJson },
       { contract: this.link_pool, json: LINKPoolJson },
       { contract: this.comp_pool, json: COMPPoolJson },
-      { contract: this.yamV2, json: YAMv2Json },
-      { contract: this.yamV2migration, json: YAMv2MigrationJson },
+      { contract: this.yamV2, json: VELOv2Json },
+      { contract: this.yamV2migration, json: VELOv2MigrationJson },
     ]
 
     contracts.forEach(contract => this.setContractProvider(
@@ -132,7 +132,7 @@ export class Contracts {
     this.UNIAmpl.options.address = addressMap["UNIAmpl"];
     this.uni_fact.options.address = addressMap["uniswapFactoryV2"];
     this.uni_router.options.address = addressMap["UNIRouter"];
-    this.yam_ycrv_uni_lp.options.address = addressMap["YAMYCRV"];
+    this.yam_ycrv_uni_lp.options.address = addressMap["VELOYCRV"];
 
     this.pools = [
       {"tokenAddr": this.yfi.options.address, "poolAddr": this.yfi_pool.options.address},

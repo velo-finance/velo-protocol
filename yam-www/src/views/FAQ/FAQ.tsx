@@ -10,33 +10,33 @@ import PageHeader from '../../components/PageHeader'
 const FAQ: React.FC = () => {
   return (
     <Page>
-      <PageHeader icon="❓" title="About YAM" />
+      <PageHeader icon="❓" title="About VELO" />
       <Container>
         <Card>
           <CardContent>
-            <p>Please see below for the most up to date information regarding the future of the YAM protocol. As has always been our intention, the community will be in control of future decision making. The migration from YAMv1 to YAMv2 is the first step in this process; from there, YAMv2 tokenholders will signal their desired path forward on community proposals.</p>
+            <p>Please see below for the most up to date information regarding the future of the VELO protocol. As has always been our intention, the community will be in control of future decision making. The migration from VELOv1 to VELOv2 is the first step in this process; from there, VELOv2 tokenholders will signal their desired path forward on community proposals.</p>
             <StyledHeading>1. How will the migration process work?</StyledHeading>
             <StyledList>
-              <StyledListItem>A new YAMv2 ERC-20 token will be created. This will be a standard ERC-20 token with no rebases to serve as placeholder while YAMv3 is audited.</StyledListItem>
+              <StyledListItem>A new VELOv2 ERC-20 token will be created. This will be a standard ERC-20 token with no rebases to serve as placeholder while VELOv3 is audited.</StyledListItem>
               <StyledListItem>A migration contract will be audited and deployed as soon as possible. We are in discussions with multiple auditors.</StyledListItem>
-              <StyledListItem>All YAMv1 holders can burn YAMv1 to mint YAMv2 via a migration contract.</StyledListItem>
-              <StyledListItem>The number of YAMv2 tokens received will be based upon YAMv1 balanceOfUnderlying, which remains constant regardless of rebases.</StyledListItem>
-              <StyledListItem>The migration contract will have a deadline that will be a minimum of 48 hours after deployment and a maximum of 72 hours after deployment. Following the deadline, migration will be impossible and YAMv1 tokens will no longer be able to migrate to YAMv2.</StyledListItem>
+              <StyledListItem>All VELOv1 holders can burn VELOv1 to mint VELOv2 via a migration contract.</StyledListItem>
+              <StyledListItem>The number of VELOv2 tokens received will be based upon VELOv1 balanceOfUnderlying, which remains constant regardless of rebases.</StyledListItem>
+              <StyledListItem>The migration contract will have a deadline that will be a minimum of 48 hours after deployment and a maximum of 72 hours after deployment. Following the deadline, migration will be impossible and VELOv1 tokens will no longer be able to migrate to VELOv2.</StyledListItem>
             </StyledList>
-            <StyledHeading>2. How will the YAMv3 protocol relaunch work?</StyledHeading>
+            <StyledHeading>2. How will the VELOv3 protocol relaunch work?</StyledHeading>
             <StyledList>
-              <StyledListItem>YAMv3 will be a fully audited version of the YAM protocol.</StyledListItem>
-              <StyledListItem>There will be a mechanism that allows for YAMv2 to be converted to YAMv3. The details of this mechanism will be subject to a vote.</StyledListItem>
+              <StyledListItem>VELOv3 will be a fully audited version of the VELO protocol.</StyledListItem>
+              <StyledListItem>There will be a mechanism that allows for VELOv2 to be converted to VELOv3. The details of this mechanism will be subject to a vote.</StyledListItem>
             </StyledList>
             <StyledHeading>How will delegators be rewarded?</StyledHeading>
             <StyledList>
-              <StyledListItem>Members of the community will submit proposals to reward those who delegated votes to help save YAM.These proposals will be subject to tokenholder approval.</StyledListItem>
+              <StyledListItem>Members of the community will submit proposals to reward those who delegated votes to help save VELO.These proposals will be subject to tokenholder approval.</StyledListItem>
               <StyledListItem>You can view snapshotted votes at the time of governance proposal <a href="https://raw.githubusercontent.com/yam-finance/yam-protocol/master/yam_delegator_snapshot_10650187_draft.json">here.</a></StyledListItem>
             </StyledList>
-            <StyledHeading>4. Can I continue to farm YAMv1?</StyledHeading>
+            <StyledHeading>4. Can I continue to farm VELOv1?</StyledHeading>
             <StyledList>
               <StyledListItem>The staking contracts continue to function.</StyledListItem>
-              <StyledListItem>Providing liquidity to the YAM/yCRV Uniswap pool is extremely risky due to the bug in the YAM rebase functionality. A positive rebase will buy yCRV and send it to the frozen reserves contract.</StyledListItem>
+              <StyledListItem>Providing liquidity to the VELO/yCRV Uniswap pool is extremely risky due to the bug in the VELO rebase functionality. A positive rebase will buy yCRV and send it to the frozen reserves contract.</StyledListItem>
             </StyledList>
             <StyledHeading>5. What are the official Yam token addresses?</StyledHeading>
             <StyledList>

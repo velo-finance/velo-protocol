@@ -37,7 +37,7 @@ const oneEther = 10 ** 18;
 const EIP712 = require('./EIP712');
 
 describe("governorAlpha#castVote/2", () => {
-  let name = "YAM";
+  let name = "VELO";
   let chainId = 1001;
   let snapshotId;
   let user;
@@ -173,7 +173,7 @@ describe("governorAlpha#castVote/2", () => {
              },
              primaryType: 'Ballot',
              domain: {
-                 name: 'YAM Governor Alpha',
+                 name: 'VELO Governor Alpha',
                  chainId: 1,
                  verifyingContract: yam.contracts.gov.options.address,
              },
@@ -213,7 +213,7 @@ describe("governorAlpha#castVote/2", () => {
              },
              primaryType: 'Ballot',
              domain: {
-                 name: 'YAM Governor Alpha',
+                 name: 'VELO Governor Alpha',
                  chainId: 1,
                  verifyingContract: "0x47Ff9D00cDAE31B4E09DEf8081bb3a1282e8061D",
              },

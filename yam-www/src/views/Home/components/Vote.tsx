@@ -124,7 +124,7 @@ const Vote: React.FC<VoteProps> = () => {
                   fontSize: 12,
                   marginTop: 4,
                   marginLeft: 4,
-                }}>{`/ ${Number(new BigNumber(160000).multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM`}</div>
+                }}>{`/ ${Number(new BigNumber(160000).multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} VELO`}</div>
             </div>
           </StyledCenter>
         </StyledResponsiveWrapper>
@@ -150,10 +150,10 @@ const Vote: React.FC<VoteProps> = () => {
         </StyledCheckpoints>
         <Spacer />
         {!delegated ? (
-          <Button text="Delegate to save YAM" onClick={handleVoteClick} />
+          <Button text="Delegate to save VELO" onClick={handleVoteClick} />
         ) : (
           <div>
-            <StyledDelegatedCount>Delegating: {Number(delegatedBalance.multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} YAM</StyledDelegatedCount>
+            <StyledDelegatedCount>Delegating: {Number(delegatedBalance.multipliedBy(scalingFactor).toFixed(0)).toLocaleString()} VELO</StyledDelegatedCount>
             <StyledThankYou>Thank you for your support ❤️</StyledThankYou>
             <div style={{
               alignItems: 'baseline',
@@ -173,8 +173,8 @@ const Vote: React.FC<VoteProps> = () => {
           paddingTop: 24,
           opacity: 0.6,
         }}>
-          <p>NOTE: You must harvest your YAMs BEFORE 7am UTC Thursday 8/13 - very soon.</p>
-          <p>Hold them in your wallet until 10PM UTC Sunday 8/16 for your delegation to save YAM</p>
+          <p>NOTE: You must harvest your VELOs BEFORE 7am UTC Thursday 8/13 - very soon.</p>
+          <p>Hold them in your wallet until 10PM UTC Sunday 8/16 for your delegation to save VELO</p>
         </div>
           <div style={{
             display: 'flex',

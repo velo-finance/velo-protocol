@@ -67,11 +67,11 @@ describe("token_tests", () => {
   describe("non-failing", () => {
     test("name", async () => {
       let name = await yam.contracts.yamV2.methods.name().call();
-      expect(name).toBe("YAMv2");
+      expect(name).toBe("VELOv2");
     });
     test("symbol", async () => {
       let symbol = await yam.contracts.yamV2.methods.symbol().call();
-      expect(symbol).toBe("YAMv2");
+      expect(symbol).toBe("VELOv2");
     });
     test("decimals", async () => {
       let decimals = await yam.contracts.yamV2.methods.decimals().call();

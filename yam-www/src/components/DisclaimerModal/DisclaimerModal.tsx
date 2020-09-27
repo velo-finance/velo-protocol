@@ -32,8 +32,8 @@ const DisclaimerModal: React.FC<DisclaimerModal> = ({ onConfirm, onDismiss }) =>
     } else {
       return (
         <div>
-          <p>Attention YAM Uniswap LPs</p>
-          <p>The only Uniswap pool that is compatible with YAM is YAM/yCRV (Curve yPool tokens)</p>
+          <p>Attention VELO Uniswap LPs</p>
+          <p>The only Uniswap pool that is compatible with VELO is VELO/yCRV (Curve yPool tokens)</p>
           <p>Providing liquidity for other Uniswap pools is dangerous</p>
           <p>You will LOSE your share of rebases</p>
         </div>

@@ -332,7 +332,7 @@
             "name": "yam",
             "outputs": [
                 {
-                    "internalType": "contract YAMInterface",
+                    "internalType": "contract VELOInterface",
                     "name": "",
                     "type": "address"
                 }

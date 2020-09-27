@@ -394,11 +394,11 @@ describe("rebase_tests", () => {
 
       let bal1 = await yam.contracts.yam.methods.balanceOf(user).call();
 
-      let resYAM = await yam.contracts.yam.methods.balanceOf(yam.contracts.reserves.options.address).call();
+      let resVELO = await yam.contracts.yam.methods.balanceOf(yam.contracts.reserves.options.address).call();
 
       let resycrv = await yam.contracts.ycrv.methods.balanceOf(yam.contracts.reserves.options.address).call();
 
-      console.log("bal user, bal yam res, bal res crv", bal1, resYAM, resycrv);
+      console.log("bal user, bal yam res, bal res crv", bal1, resVELO, resycrv);
       r = await yam.contracts.uni_pair.methods.getReserves().call();
       q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), r[0], r[1]).call();
       console.log("post positive rebase quote", q);
@@ -406,7 +406,7 @@ describe("rebase_tests", () => {
       // new balance > old balance
       expect(yam.toBigN(bal).toNumber()).toBeLessThan(yam.toBigN(bal1).toNumber());
       // used full yam reserves
-      expect(yam.toBigN(resYAM).toNumber()).toBe(0);
+      expect(yam.toBigN(resVELO).toNumber()).toBe(0);
       // increases reserves
       expect(yam.toBigN(resycrv).toNumber()).toBeGreaterThan(0);
 
@@ -564,14 +564,14 @@ describe("rebase_tests", () => {
 
       let bal1 = await yam.contracts.yam.methods.balanceOf(user).call();
 
-      let resYAM = await yam.contracts.yam.methods.balanceOf(yam.contracts.reserves.options.address).call();
+      let resVELO = await yam.contracts.yam.methods.balanceOf(yam.contracts.reserves.options.address).call();
 
       let resycrv = await yam.contracts.ycrv.methods.balanceOf(yam.contracts.reserves.options.address).call();
 
       // balance decreases
       expect(yam.toBigN(bal1).toNumber()).toBeLessThan(yam.toBigN(bal).toNumber());
       // no increases to reserves
-      expect(yam.toBigN(resYAM).toNumber()).toBe(0);
+      expect(yam.toBigN(resVELO).toNumber()).toBe(0);
       expect(yam.toBigN(resycrv).toNumber()).toBe(0);
     });
     test("no rebasing", async () => {
@@ -751,20 +751,20 @@ describe("rebase_tests", () => {
 
       let bal1 = await yam.contracts.yam.methods.balanceOf(user).call();
 
-      let resYAM = await yam.contracts.yam.methods.balanceOf(yam.contracts.reserves.options.address).call();
+      let resVELO = await yam.contracts.yam.methods.balanceOf(yam.contracts.reserves.options.address).call();
 
       let resycrv = await yam.contracts.ycrv.methods.balanceOf(yam.contracts.reserves.options.address).call();
 
       // no change
       expect(yam.toBigN(bal1).toNumber()).toBe(yam.toBigN(bal).toNumber());
       // no increases to reserves
-      expect(yam.toBigN(resYAM).toNumber()).toBe(0);
+      expect(yam.toBigN(resVELO).toNumber()).toBe(0);
       expect(yam.toBigN(resycrv).toNumber()).toBe(0);
       r = await yam.contracts.uni_pair.methods.getReserves().call();
       q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), r[0], r[1]).call();
       console.log("quote post no rebase", q);
     });
-    test("rebasing with YAM in reserves", async () => {
+    test("rebasing with VELO in reserves", async () => {
       await yam.contracts.yam.methods.transfer(yam.contracts.reserves.options.address, yam.toBigN(60000*10**18).toString()).send({from: user});
       await yam.contracts.yam.methods.approve(
         yam.contracts.uni_router.options.address,
@@ -916,13 +916,13 @@ describe("rebase_tests", () => {
 
       let bal1 = await yam.contracts.yam.methods.balanceOf(user).call();
 
-      let resYAM = await yam.contracts.yam.methods.balanceOf(yam.contracts.reserves.options.address).call();
+      let resVELO = await yam.contracts.yam.methods.balanceOf(yam.contracts.reserves.options.address).call();
 
       let resycrv = await yam.contracts.ycrv.methods.balanceOf(yam.contracts.reserves.options.address).call();
 
-      console.log(bal, bal1, resYAM, resycrv);
+      console.log(bal, bal1, resVELO, resycrv);
       expect(yam.toBigN(bal).toNumber()).toBeLessThan(yam.toBigN(bal1).toNumber());
-      expect(yam.toBigN(resYAM).toNumber()).toBeGreaterThan(0);
+      expect(yam.toBigN(resVELO).toNumber()).toBeGreaterThan(0);
       expect(yam.toBigN(resycrv).toNumber()).toBeGreaterThan(0);
       r = await yam.contracts.uni_pair.methods.getReserves().call();
       q = await yam.contracts.uni_router.methods.quote(yam.toBigN(10**18).toString(), r[0], r[1]).call();

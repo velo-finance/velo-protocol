@@ -17,7 +17,7 @@
 /___/ \_, //_//_/\__//_//_/\__/ \__//_/ /_\_\
      /___/
 
-* Synthetix: YAMIncentives.sol
+* Synthetix: VELOIncentives.sol
 *
 * Docs: https://docs.synthetix.io/
 *
@@ -632,12 +632,12 @@ contract LPTokenWrapper {
     }
 }
 
-interface YAM {
+interface VELO {
     function yamsScalingFactor() external returns (uint256);
     function mint(address to, uint256 amount) external;
 }
 
-contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
+contract VELOIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
     IERC20 public yam = IERC20(0x0e2298E3B3390e3b945a5456fBf59eCc3f55DA16);
     uint256 public constant DURATION = 625000;
 
@@ -730,7 +730,7 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
         uint256 reward = earned(msg.sender);
         if (reward > 0) {
             rewards[msg.sender] = 0;
-            uint256 scalingFactor = YAM(address(yam)).yamsScalingFactor();
+            uint256 scalingFactor = VELO(address(yam)).yamsScalingFactor();
             uint256 trueReward = reward.mul(scalingFactor).div(10**18);
             yam.safeTransfer(msg.sender, trueReward);
             emit RewardPaid(msg.sender, trueReward);
@@ -746,7 +746,7 @@ contract YAMIncentivizer is LPTokenWrapper, IRewardDistributionRecipient {
     modifier checkhalve() {
         if (block.timestamp >= periodFinish) {
             initreward = initreward.mul(50).div(100);
-            uint256 scalingFactor = YAM(address(yam)).yamsScalingFactor();
+            uint256 scalingFactor = VELO(address(yam)).yamsScalingFactor();
             uint256 newRewards = initreward.mul(scalingFactor).div(10**18);
             yam.mint(address(this), newRewards);
 

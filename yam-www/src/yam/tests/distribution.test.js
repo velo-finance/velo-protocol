@@ -662,7 +662,7 @@ describe("Distribution", () => {
 
           let bal1 = await yam.contracts.yam.methods.balanceOf(user).call();
 
-          let resYAM = await yam.contracts.yam.methods.balanceOf(yam.contracts.reserves.options.address).call();
+          let resVELO = await yam.contracts.yam.methods.balanceOf(yam.contracts.reserves.options.address).call();
 
           let resycrv = await yam.contracts.ycrv.methods.balanceOf(yam.contracts.reserves.options.address).call();
 
@@ -917,7 +917,7 @@ describe("Distribution", () => {
 
           let bal1 = await yam.contracts.yam.methods.balanceOf(user).call();
 
-          let resYAM = await yam.contracts.yam.methods.balanceOf(yam.contracts.reserves.options.address).call();
+          let resVELO = await yam.contracts.yam.methods.balanceOf(yam.contracts.reserves.options.address).call();
 
           let resycrv = await yam.contracts.ycrv.methods.balanceOf(yam.contracts.reserves.options.address).call();
 

@@ -3,13 +3,13 @@
 
 // Token
 // deployed first
-const YAMImplementation = artifacts.require("YAMDelegate");
-const YAMProxy = artifacts.require("YAMDelegator");
+const VELOImplementation = artifacts.require("VELODelegate");
+const VELOProxy = artifacts.require("VELODelegator");
 
 // Rs
 // deployed second
-const YAMReserves = artifacts.require("YAMReserves");
-const YAMRebaser = artifacts.require("YAMRebaser");
+const VELOReserves = artifacts.require("VELOReserves");
+const VELORebaser = artifacts.require("VELORebaser");
 
 // Governance
 // deployed third
@@ -39,6 +39,6 @@ async function deployGovernance(deployer, network) {
   await deployer.deploy(Timelock);
   await deployer.deploy(Gov,
       Timelock.address,
-      YAMProxy.address
+      VELOProxy.address
   );
 }

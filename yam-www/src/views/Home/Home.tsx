@@ -16,8 +16,8 @@ const Home: React.FC = () => {
     <Page>
       <PageHeader
         icon="🗣"
-        subtitle="Vote on the future of the YAM protocol."
-        title="YAMV2 governance is live."
+        subtitle="Vote on the future of the VELO protocol."
+        title="VELOV2 governance is live."
       />
       <Container>
         <div style={{
