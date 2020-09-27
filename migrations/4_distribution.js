@@ -7,21 +7,21 @@ const VELOImplementation = artifacts.require("VELODelegate");
 const VELOProxy = artifacts.require("VELODelegator");
 
 // deployed third
-const VELOReserves = artifacts.require("VELOReserves");
+//const VELOReserves = artifacts.require("VELOReserves");
 const VELORebaser = artifacts.require("VELORebaser");
 
 const Gov = artifacts.require("GovernorAlpha");
 const Timelock = artifacts.require("Timelock");
 
 // deployed fourth
-const VELO_ETHPool = artifacts.require("VELOETHPool");
-const VELO_uAMPLPool = artifacts.require("VELOAMPLPool");
-const VELO_YFIPool = artifacts.require("VELOYFIPool");
+//const VELO_ETHPool = artifacts.require("VELOETHPool");
+//const VELO_uAMPLPool = artifacts.require("VELOAMPLPool");
+//const VELO_YFIPool = artifacts.require("VELOYFIPool");
 const VELO_LINKPool = artifacts.require("VELOLINKPool");
-const VELO_MKRPool = artifacts.require("VELOMKRPool");
-const VELO_LENDPool = artifacts.require("VELOLENDPool");
-const VELO_COMPPool = artifacts.require("VELOCOMPPool");
-const VELO_SNXPool = artifacts.require("VELOSNXPool");
+//const VELO_MKRPool = artifacts.require("VELOMKRPool");
+//const VELO_LENDPool = artifacts.require("VELOLENDPool");
+//const VELO_COMPPool = artifacts.require("VELOCOMPPool");
+//const VELO_SNXPool = artifacts.require("VELOSNXPool");
 
 
 // deployed fifth
@@ -50,38 +50,38 @@ async function deployDistribution(deployer, network, accounts) {
   let tl = await Timelock.deployed();
   let gov = await Gov.deployed();
   if (network != "test") {
-    await deployer.deploy(VELO_ETHPool);
-    await deployer.deploy(VELO_uAMPLPool);
-    await deployer.deploy(VELO_YFIPool);
-    await deployer.deploy(VELOIncentivizer);
+    //await deployer.deploy(VELO_ETHPool);
+    //await deployer.deploy(VELO_uAMPLPool);
+    //await deployer.deploy(VELO_YFIPool);
+    //await deployer.deploy(VELOIncentivizer);
     await deployer.deploy(VELO_LINKPool);
-    await deployer.deploy(VELO_MKRPool);
-    await deployer.deploy(VELO_LENDPool);
-    await deployer.deploy(VELO_COMPPool);
-    await deployer.deploy(VELO_SNXPool);
+    //await deployer.deploy(VELO_MKRPool);
+    //await deployer.deploy(VELO_LENDPool);
+    //await deployer.deploy(VELO_COMPPool);
+    //await deployer.deploy(VELO_SNXPool);
 
-    let eth_pool = new web3.eth.Contract(VELO_ETHPool.abi, VELO_ETHPool.address);
-    let ampl_pool = new web3.eth.Contract(VELO_uAMPLPool.abi, VELO_uAMPLPool.address);
-    let yfi_pool = new web3.eth.Contract(VELO_YFIPool.abi, VELO_YFIPool.address);
-    let lend_pool = new web3.eth.Contract(VELO_LENDPool.abi, VELO_LENDPool.address);
-    let mkr_pool = new web3.eth.Contract(VELO_MKRPool.abi, VELO_MKRPool.address);
-    let snx_pool = new web3.eth.Contract(VELO_SNXPool.abi, VELO_SNXPool.address);
-    let comp_pool = new web3.eth.Contract(VELO_COMPPool.abi, VELO_COMPPool.address);
+    //let eth_pool = new web3.eth.Contract(VELO_ETHPool.abi, VELO_ETHPool.address);
+    //let ampl_pool = new web3.eth.Contract(VELO_uAMPLPool.abi, VELO_uAMPLPool.address);
+    //let yfi_pool = new web3.eth.Contract(VELO_YFIPool.abi, VELO_YFIPool.address);
+    //let lend_pool = new web3.eth.Contract(VELO_LENDPool.abi, VELO_LENDPool.address);
+    //let mkr_pool = new web3.eth.Contract(VELO_MKRPool.abi, VELO_MKRPool.address);
+    // let snx_pool = new web3.eth.Contract(VELO_SNXPool.abi, VELO_SNXPool.address);
+    // let comp_pool = new web3.eth.Contract(VELO_COMPPool.abi, VELO_COMPPool.address);
     let link_pool = new web3.eth.Contract(VELO_LINKPool.abi, VELO_LINKPool.address);
-    let ycrv_pool = new web3.eth.Contract(VELOIncentivizer.abi, VELOIncentivizer.address);
+    // let ycrv_pool = new web3.eth.Contract(VELOIncentivizer.abi, VELOIncentivizer.address);
 
     console.log("setting distributor");
     await Promise.all([
-        eth_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000}),
-        ampl_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000}),
-        yfi_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000}),
-        ycrv_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000}),
-        lend_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000}),
-        mkr_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000}),
-        snx_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000}),
-        comp_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000}),
+        // eth_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000}),
+        // ampl_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000}),
+        // yfi_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000}),
+        // ycrv_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000}),
+        // lend_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000}),
+        // mkr_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000}),
+        // snx_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000}),
+        // comp_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000}),
         link_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000}),
-        ycrv_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000}),
+        // ycrv_pool.methods.setRewardDistribution(accounts[0]).send({from: accounts[0], gas: 100000}),
       ]);
 
     let two_fifty = web3.utils.toBN(10**3).mul(web3.utils.toBN(10**18)).mul(web3.utils.toBN(250));
@@ -90,58 +90,59 @@ async function deployDistribution(deployer, network, accounts) {
     console.log("transfering and notifying");
     console.log("eth");
     await Promise.all([
-      velo.transfer(VELO_ETHPool.address, two_fifty.toString()),
-      velo.transfer(VELO_uAMPLPool.address, two_fifty.toString()),
-      velo.transfer(VELO_YFIPool.address, two_fifty.toString()),
-      velo.transfer(VELO_LENDPool.address, two_fifty.toString()),
-      velo.transfer(VELO_MKRPool.address, two_fifty.toString()),
-      velo.transfer(VELO_SNXPool.address, two_fifty.toString()),
-      velo.transfer(VELO_COMPPool.address, two_fifty.toString()),
+      // velo.transfer(VELO_ETHPool.address, two_fifty.toString()),
+      // velo.transfer(VELO_uAMPLPool.address, two_fifty.toString()),
+      // velo.transfer(VELO_YFIPool.address, two_fifty.toString()),
+      // velo.transfer(VELO_LENDPool.address, two_fifty.toString()),
+      // velo.transfer(VELO_MKRPool.address, two_fifty.toString()),
+      // velo.transfer(VELO_SNXPool.address, two_fifty.toString()),
+      // velo.transfer(VELO_COMPPool.address, two_fifty.toString()),
       velo.transfer(VELO_LINKPool.address, two_fifty.toString()),
-      velo._setIncentivizer(VELOIncentivizer.address),
+      // velo._setIncentivizer(VELOIncentivizer.address),
     ]);
 
     await Promise.all([
-      eth_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]}),
-      ampl_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]}),
-      yfi_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]}),
-      lend_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]}),
-      mkr_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]}),
-      snx_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]}),
-      comp_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]}),
+      // eth_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]}),
+      // ampl_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]}),
+      // yfi_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]}),
+      // lend_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]}),
+      // mkr_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]}),
+      // snx_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]}),
+      // comp_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]}),
       link_pool.methods.notifyRewardAmount(two_fifty.toString()).send({from:accounts[0]}),
 
       // incentives is a minter and prepopulates itself.
-      ycrv_pool.methods.notifyRewardAmount("0").send({from: accounts[0], gas: 500000}),
+      // ycrv_pool.methods.notifyRewardAmount("0").send({from: accounts[0], gas: 500000}),
     ]);
 
     await Promise.all([
-      eth_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000}),
-      ampl_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000}),
-      yfi_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000}),
-      lend_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000}),
-      mkr_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000}),
-      snx_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000}),
-      comp_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000}),
+      // eth_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000}),
+      // ampl_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000}),
+      // yfi_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000}),
+      // lend_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000}),
+      // mkr_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000}),
+      // snx_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000}),
+      // comp_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000}),
       link_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000}),
-      ycrv_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000}),
+      // ycrv_pool.methods.setRewardDistribution(Timelock.address).send({from: accounts[0], gas: 100000}),
     ]);
     await Promise.all([
-      eth_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000}),
-      ampl_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000}),
-      yfi_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000}),
-      lend_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000}),
-      mkr_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000}),
-      snx_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000}),
-      comp_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000}),
+      // eth_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000}),
+      // ampl_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000}),
+      // yfi_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000}),
+      // lend_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000}),
+      // mkr_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000}),
+      // snx_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000}),
+      // comp_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000}),
       link_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000}),
-      ycrv_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000}),
+      // ycrv_pool.methods.transferOwnership(Timelock.address).send({from: accounts[0], gas: 100000}),
     ]);
   }
 
   await Promise.all([
     velo._setPendingGov(Timelock.address),
-    yReserves._setPendingGov(Timelock.address),
+    // yReserves._setPendingGov(Timelock.address),
+    // TODO Set fee charger gov
     yRebaser._setPendingGov(Timelock.address),
   ]);
 
@@ -154,13 +155,13 @@ async function deployDistribution(deployer, network, accounts) {
         0
       ),
 
-      tl.executeTransaction(
-        VELOReserves.address,
-        0,
-        "_acceptGov()",
-        "0x",
-        0
-      ),
+      // tl.executeTransaction(
+      //   VELOReserves.address,
+      //   0,
+      //   "_acceptGov()",
+      //   "0x",
+      //   0
+      // ),
 
       tl.executeTransaction(
         VELORebaser.address,
