@@ -10,6 +10,7 @@ contract FeeCharger {
 
     uint256 public govFactor;
     address public gov;
+    address public beneficiary;
 
     modifier onlyGov() {
         require(msg.sender == gov, "!gov");
@@ -30,9 +31,16 @@ contract FeeCharger {
         govFactor = factor;
     }
 
+    function setBeneficiary(address beneficiary_) external onlyGov {
+        beneficiary = beneficiary_;
+    }
+
     function chargeFee(uint256 amount) public {
-        chi.mint(amount * govFactor);
-        chi.transfer(gov, chi.balanceOf(address(this)));
+        uint256 mintAmount = chi.mint(amount * govFactor / 10**18);
+        if(mintAmount > 0) {
+            chi.mint(mintAmount);
+            chi.transfer(beneficiary, chi.balanceOf(address(this)));
+        }
     }
 
 }
