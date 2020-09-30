@@ -11,6 +11,6 @@ fs.readdir("./build/contracts", function (err, files) {
         clean.abi = source.abi;
         clean.networks = source.networks;
 
-        fs.writeFile(`./clean_build/contracts/${value}`, JSON.stringify(clean, null, 4), console.log);
+        fs.writeFile(`./clean_build/contracts/${value}`, JSON.stringify(clean, null, 4), { flag: 'w' }, console.log);
     });
 })

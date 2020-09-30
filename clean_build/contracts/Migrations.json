@@ -52,5 +52,12 @@
             "type": "function"
         }
     ],
-    "networks": {}
+    "networks": {
+        "5": {
+            "events": {},
+            "links": {},
+            "address": "0x5f97C744Df61141Adee064F886E8C48dB345fA2d",
+            "transactionHash": "0x4a4c6bebf5565d2fd30fcda06475f7b27f14e9b933e94f4f020714d7134334c9"
+        }
+    }
 }

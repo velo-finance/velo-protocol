@@ -5,7 +5,7 @@ import "../token/VELOTokenInterface.sol";
 
 contract FeeCharger {
 
-    ICHI public chi;
+    ICHI public constant chi = ICHI(0x0000000000004946c0e9F43F4Dee607b0eF1fA1c);
     VELOTokenInterface public velo;
 
     uint256 public govFactor;
@@ -17,8 +17,7 @@ contract FeeCharger {
         _;
     }
 
-    constructor(address chi_, address velo_) public {
-        chi = ICHI(chi_);
+    constructor(address velo_) public {
         velo = VELOTokenInterface(velo_);
         gov = msg.sender;
     }

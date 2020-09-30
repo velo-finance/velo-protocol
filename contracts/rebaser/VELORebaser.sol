@@ -11,7 +11,7 @@ contract VELORebaser {
     uint256 public previousTWV;
     uint256 public previousVelocity;
     uint256 public lastRebase;
-    uint256 public constant REBASE_INTERVAL = 12 hours;
+    uint256 public constant REBASE_INTERVAL = 30 minutes;
 
     address public VELO;
 

@@ -6,6 +6,7 @@
   "scripts": {
     "compile": "truffle build",
     "build:artifacts": "node ./scripts/clean.js",
+    "remix": "remixd -s . --remix-ide https://remix.ethereum.org",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

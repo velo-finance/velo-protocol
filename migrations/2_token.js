@@ -4,6 +4,8 @@
 // deployed first
 const VELOImplementation = artifacts.require("VELODelegate");
 const VELOProxy = artifacts.require("VELODelegator");
+const VELORebaser = artifacts.require("VELORebaser");
+const FeeCharger = artifacts.require("FeeCharger");
 
 // ============ Main Migration ============
 
@@ -27,8 +29,10 @@ async function deployToken(deployer, network) {
       18,
       "9000000000000000000000000", // print extra few mil for user
       VELOImplementation.address,
-      "0x"
+      "0x",
     );
+
+    
   } else {
     await deployer.deploy(VELOProxy,
       "VELO",
@@ -39,5 +43,15 @@ async function deployToken(deployer, network) {
       "0x"
     );
   }
+
+  await deployer.deploy(VELORebaser,
+    (await VELOProxy.deployed()).address
+  );
+
+  await (await VELOProxy.deployed())._setRebaser((await VELORebaser.deployed()).address)
+
+  await deployer.deploy(FeeCharger,
+    (await VELOProxy.deployed()).address
+  );
 
 }

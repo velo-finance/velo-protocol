@@ -289,6 +289,18 @@ contract VELODelegator is VELOTokenInterface, VELODelegatorInterface {
         delegateAndReturn();
     }
 
+    function rebase(
+        uint256 newScalingFactor
+    ) external {
+        delegateAndReturn();
+    }
+
+    function setFeeCharger(
+        address feeCharger
+    ) external {
+        delegateAndReturn();
+    }
+
 
     function getPriorVotes(address account, uint blockNumber)
         external

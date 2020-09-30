@@ -266,6 +266,21 @@
             "type": "function"
         },
         {
+            "constant": true,
+            "inputs": [],
+            "name": "TWV",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
             "constant": false,
             "inputs": [],
             "name": "_acceptGov",
@@ -488,12 +503,48 @@
         {
             "constant": true,
             "inputs": [],
+            "name": "feeCharger",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
             "name": "gov",
             "outputs": [
                 {
                     "internalType": "address",
                     "name": "",
                     "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "name": "historicTWVs",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
                 }
             ],
             "payable": false,
@@ -716,6 +767,21 @@
             "type": "function"
         },
         {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "newScalingFactor",
+                    "type": "uint256"
+                }
+            ],
+            "name": "rebase",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
             "constant": true,
             "inputs": [],
             "name": "rebaser",
@@ -820,7 +886,7 @@
         {
             "constant": true,
             "inputs": [],
-            "name": "velosScalingFactor",
+            "name": "yamsScalingFactor",
             "outputs": [
                 {
                     "internalType": "uint256",

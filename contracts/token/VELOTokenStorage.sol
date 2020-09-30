@@ -43,11 +43,6 @@ contract VELOTokenStorage {
     address public rebaser;
 
     /**
-     * @notice Reserve address of VELO protocol
-     */
-    address public incentivizer;
-
-    /**
      * @notice Total supply of VELOs
      */
     uint256 public totalSupply;

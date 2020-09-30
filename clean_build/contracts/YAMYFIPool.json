@@ -344,7 +344,7 @@
         {
             "constant": true,
             "inputs": [],
-            "name": "velo",
+            "name": "yam",
             "outputs": [
                 {
                     "internalType": "contract IERC20",

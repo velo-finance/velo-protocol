@@ -1,70 +1,84 @@
 {
     "abi": [
         {
-            "anonymous": false,
             "inputs": [
                 {
-                    "indexed": true,
                     "internalType": "address",
-                    "name": "previousOwner",
-                    "type": "address"
-                },
-                {
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "newOwner",
+                    "name": "velo_",
                     "type": "address"
                 }
             ],
-            "name": "OwnershipTransferred",
-            "type": "event"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "isOwner",
-            "outputs": [
-                {
-                    "internalType": "bool",
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
-            "name": "owner",
-            "outputs": [
-                {
-                    "internalType": "address",
-                    "name": "",
-                    "type": "address"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [],
-            "name": "renounceOwnership",
-            "outputs": [],
             "payable": false,
             "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "beneficiary",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
             "type": "function"
         },
         {
             "constant": true,
             "inputs": [],
-            "name": "rewardDistribution",
+            "name": "chi",
+            "outputs": [
+                {
+                    "internalType": "contract ICHI",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "gov",
             "outputs": [
                 {
                     "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "govFactor",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "velo",
+            "outputs": [
+                {
+                    "internalType": "contract VELOTokenInterface",
                     "name": "",
                     "type": "address"
                 }
@@ -78,11 +92,11 @@
             "inputs": [
                 {
                     "internalType": "address",
-                    "name": "newOwner",
+                    "name": "newGov",
                     "type": "address"
                 }
             ],
-            "name": "transferOwnership",
+            "name": "setGov",
             "outputs": [],
             "payable": false,
             "stateMutability": "nonpayable",
@@ -93,11 +107,11 @@
             "inputs": [
                 {
                     "internalType": "uint256",
-                    "name": "reward",
+                    "name": "factor",
                     "type": "uint256"
                 }
             ],
-            "name": "notifyRewardAmount",
+            "name": "setGovFactor",
             "outputs": [],
             "payable": false,
             "stateMutability": "nonpayable",
@@ -108,16 +122,38 @@
             "inputs": [
                 {
                     "internalType": "address",
-                    "name": "_rewardDistribution",
+                    "name": "beneficiary_",
                     "type": "address"
                 }
             ],
-            "name": "setRewardDistribution",
+            "name": "setBeneficiary",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "chargeFee",
             "outputs": [],
             "payable": false,
             "stateMutability": "nonpayable",
             "type": "function"
         }
     ],
-    "networks": {}
+    "networks": {
+        "5": {
+            "events": {},
+            "links": {},
+            "address": "0x82ddAEe5C4CA9c77f86c1e99Fe9971dfdB47e7E6",
+            "transactionHash": "0x144f2b6cef01db13fb6d8723b2136ac1d1c86f5fb7e434713f6f40a6f5409256"
+        }
+    }
 }

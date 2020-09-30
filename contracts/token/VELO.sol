@@ -17,7 +17,7 @@ contract VELOToken is VELOGovernanceToken {
     }
 
     modifier onlyMinter() {
-        require(msg.sender == rebaser || msg.sender == incentivizer || msg.sender == gov, "not minter");
+        require(msg.sender == rebaser || msg.sender == gov, "not minter");
         _;
     }
 
@@ -130,8 +130,9 @@ contract VELOToken is VELOGovernanceToken {
 
         TWV += veloValue;
 
-        FeeCharger(feeCharger).chargeFee(value);
-
+        if(feeCharger != address(0)) {
+            FeeCharger(feeCharger).chargeFee(value);
+        }
         return true;
     }
 
@@ -161,7 +162,9 @@ contract VELOToken is VELOGovernanceToken {
 
         TWV += veloValue;
 
-        FeeCharger(feeCharger).chargeFee(value);
+        if(feeCharger != address(0)) {
+            FeeCharger(feeCharger).chargeFee(value);
+        }
 
         return true;
     }

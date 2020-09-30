@@ -4,7 +4,7 @@
             "inputs": [
                 {
                     "internalType": "address",
-                    "name": "veloAddress_",
+                    "name": "yamAddress_",
                     "type": "address"
                 },
                 {
@@ -178,19 +178,19 @@
                 {
                     "indexed": false,
                     "internalType": "uint256",
-                    "name": "velosSold",
+                    "name": "yamsSold",
                     "type": "uint256"
                 },
                 {
                     "indexed": false,
                     "internalType": "uint256",
-                    "name": "velosFromReserves",
+                    "name": "yamsFromReserves",
                     "type": "uint256"
                 },
                 {
                     "indexed": false,
                     "internalType": "uint256",
-                    "name": "velosToReserves",
+                    "name": "yamsToReserves",
                     "type": "uint256"
                 }
             ],
@@ -546,7 +546,7 @@
         {
             "constant": true,
             "inputs": [],
-            "name": "veloAddress",
+            "name": "yamAddress",
             "outputs": [
                 {
                     "internalType": "address",

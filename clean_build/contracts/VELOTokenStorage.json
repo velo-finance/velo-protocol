@@ -99,21 +99,6 @@
         {
             "constant": true,
             "inputs": [],
-            "name": "incentivizer",
-            "outputs": [
-                {
-                    "internalType": "address",
-                    "name": "",
-                    "type": "address"
-                }
-            ],
-            "payable": false,
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": true,
-            "inputs": [],
             "name": "initSupply",
             "outputs": [
                 {
@@ -219,7 +204,7 @@
         {
             "constant": true,
             "inputs": [],
-            "name": "yamsScalingFactor",
+            "name": "velosScalingFactor",
             "outputs": [
                 {
                     "internalType": "uint256",

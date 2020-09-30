@@ -76,12 +76,10 @@ contract VELOTokenInterface is VELOTokenStorage, VELOGovernanceStorage {
 
     /* - Permissioned/Governance functions - */
     function mint(address to, uint256 amount) external returns (bool);
-    function rebase(uint256 epoch, uint256 indexDelta, bool positive) external returns (uint256);
     function rebase(
         uint256 newScalingFactor
     ) external;
     function _setRebaser(address rebaser_) external;
-    function _setIncentivizer(address incentivizer_) external;
     function _setPendingGov(address pendingGov_) external;
     function _acceptGov() external;
 

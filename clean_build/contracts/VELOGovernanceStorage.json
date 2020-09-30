@@ -3,12 +3,12 @@
         {
             "constant": true,
             "inputs": [],
-            "name": "link",
+            "name": "DELEGATION_TYPEHASH",
             "outputs": [
                 {
-                    "internalType": "contract IERC20",
+                    "internalType": "bytes32",
                     "name": "",
-                    "type": "address"
+                    "type": "bytes32"
                 }
             ],
             "payable": false,
@@ -18,7 +18,59 @@
         {
             "constant": true,
             "inputs": [],
-            "name": "totalSupply",
+            "name": "DOMAIN_TYPEHASH",
+            "outputs": [
+                {
+                    "internalType": "bytes32",
+                    "name": "",
+                    "type": "bytes32"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint32",
+                    "name": "",
+                    "type": "uint32"
+                }
+            ],
+            "name": "checkpoints",
+            "outputs": [
+                {
+                    "internalType": "uint32",
+                    "name": "fromBlock",
+                    "type": "uint32"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "votes",
+                    "type": "uint256"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "nonces",
             "outputs": [
                 {
                     "internalType": "uint256",
@@ -35,50 +87,20 @@
             "inputs": [
                 {
                     "internalType": "address",
-                    "name": "account",
+                    "name": "",
                     "type": "address"
                 }
             ],
-            "name": "balanceOf",
+            "name": "numCheckpoints",
             "outputs": [
                 {
-                    "internalType": "uint256",
+                    "internalType": "uint32",
                     "name": "",
-                    "type": "uint256"
+                    "type": "uint32"
                 }
             ],
             "payable": false,
             "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "amount",
-                    "type": "uint256"
-                }
-            ],
-            "name": "stake",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "constant": false,
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "amount",
-                    "type": "uint256"
-                }
-            ],
-            "name": "withdraw",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
             "type": "function"
         }
     ],
