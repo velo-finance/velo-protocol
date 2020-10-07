@@ -4,14 +4,20 @@ pragma experimental ABIEncoderV2;
 import "../lib/SafeERC20.sol";
 import "../lib/SafeMath.sol";
 import {VELOTokenInterface as IVELO} from "../token/VELOTokenInterface.sol";
+import { ABDKMath64x64 as fp } from "../lib/ABDKMath64x64.sol";
 
 contract VELORebaser {
     using SafeMath for uint256;
+    using fp for int128;
 
     uint256 public previousTWV;
     uint256 public previousVelocity;
     uint256 public lastRebase;
     uint256 public constant REBASE_INTERVAL = 30 minutes;
+    uint256 public constant START_REBASE_AT = 1602076256;
+    uint256 public constant C = 1610000000000000000;
+    uint256 public constant K = 25000000000000000000;
+    uint256 public constant PRECISSION = 10**18;
 
     address public VELO;
 
@@ -56,45 +62,25 @@ contract VELORebaser {
         transactions.pop();
     }
 
-    function rebase() external {
+    function rebase() external returns(uint256) {
         require(block.timestamp - lastRebase > REBASE_INTERVAL, "Too soon");
-        require(msg.sender == tx.origin, "EOA Only");
+        require(msg.sender == VELO, "VELO only");
 
         IVELO velo = IVELO(VELO);
-
-        // TODO first rebase with no historic data
-        uint256 TWV =  velo.TWV();
-        uint256 velocity = velo.TWV() - previousTWV;
-
-        // If velocitiy is zero do nothing
-        if(velocity == 0) {
-            return;
-        }
-
-        // If no velocity was tracked before, save velocity but skip rebase
-        if(previousVelocity == 0) {
-            previousVelocity = velocity;
-            return;
-        }
-
-        uint256 oldScalingFactor = velo.velosScalingFactor();
-        uint256 newScalingFactor = oldScalingFactor.mul(previousVelocity).div(velocity);
         
-        // Limit rebase to x2 or /2
-        if(newScalingFactor > oldScalingFactor * 2) {
-            newScalingFactor = oldScalingFactor * 2;
-        } else if(newScalingFactor < oldScalingFactor / 2) {
-            newScalingFactor = oldScalingFactor / 2;
+        // If no rebasing yet do nothing
+        if(block.timestamp < START_REBASE_AT) {
+            lastRebase = block.timestamp;
+            return velo.velosScalingFactor();
         }
 
-        velo.rebase(newScalingFactor);
-
-        previousTWV = TWV;
-        previousVelocity = velocity;
+        uint256 prevScalingFactor = velo.velosScalingFactor();
+        uint256 newScalingFactor = prevScalingFactor.mul(calcFTFixed(velo.sEMA(), velo.fEMA(), C, K)).div(10**18);
 
         lastRebase = block.timestamp;
-
         _afterRebase();
+
+        return newScalingFactor;
     }
 
     function _afterRebase() internal {
@@ -103,6 +89,79 @@ contract VELORebaser {
             // Failed transactions should be ignored
             transaction.destination.call(transaction.data);
         }
+    }
+
+    function toFP(int256 _value) public pure returns (int128) {
+        return fp.fromInt(_value);
+    }
+    
+    function toInt(int128 _value) public pure returns (int256) {
+        return fp.muli(_value, int256(PRECISSION));
+    }
+
+    function op_nv1t_plus_v2t_v(uint256 _v1t, uint256 _v2t) public pure returns (int128) {
+        require(_v1t < 2**255 - 1, "_v1t must be smaller than max int256");
+        require(_v2t < 2**255 - 1, "_v2t must be smaller than max int256");
+        
+        int128 MINUS_ONE = fp.fromInt(-1);
+
+        int128 v1t = fp.divu(_v1t, PRECISSION);
+        int128 v2t = fp.divu(_v2t, PRECISSION);
+
+        return v1t.mul(MINUS_ONE).add(v2t);
+    }
+    
+    function op_div_k_v(int128 _op_nv1t_plus_v2t_v, uint256 _k) public pure returns(int128) {
+        require(_k < 2**255 - 1, "_k must be smaller than int256");
+        
+        int128 k = fp.divu(_k, PRECISSION);
+        
+        return fp.div(_op_nv1t_plus_v2t_v, k);
+    }
+    
+    function op_e_pow_v(int128 _op_div_k_v) public pure returns(int128) {
+        return fp.exp(_op_div_k_v);
+    }
+    
+    function op_one_plus_v(int128 _op_e_pow_v) public pure returns(int128) {
+        return fp.fromUInt(1).add(_op_e_pow_v);
+    }
+    
+    function op_div_v(int128 _op_one_plus_v) public pure returns(int128) {
+        return fp.fromUInt(1).div(_op_one_plus_v);
+    }
+    
+    //     let op_n_plus_v = -0.5_f64 + op_div_v;
+    function op_n_plus_v(int128 _op_div_v) public pure returns(int128) {
+        return fp.divi(1, -2).add(_op_div_v);
+    }
+    
+    
+    // let op_c_mul_v = c * op_n_plus_v;
+    function op_c_mul_v(uint256 _c, int128 _op_n_plus_v) public pure returns(int128) {
+        require(_c < 2**255 - 1, "_c must be smaller than max int256");
+        int128 c = fp.divu(_c, PRECISSION);
+        
+        return fp.mul(c, _op_n_plus_v);
+    }
+    
+    //     let op_rt_v = 1_f64 + op_c_mul_v;
+    function op_rt_v(int128 _op_c_mul_v) public pure returns(int128) {
+        return fp.fromUInt(1).add(_op_c_mul_v);
+    }
+    
+
+    function calcFTFixed(uint256 _v1t, uint256 _v2t, uint256 _c, uint256 _k) public pure returns (uint256) {
+        int128 op_nv1t_plus_v2t_v_ = op_nv1t_plus_v2t_v(_v1t, _v2t);
+        int128 op_div_k_v_ = op_div_k_v(op_nv1t_plus_v2t_v_, _k);
+        int128 op_e_pow_v_ = op_e_pow_v(op_div_k_v_);
+        int128 op_one_plus_v_ = op_one_plus_v(op_e_pow_v_);
+        int128 op_div_v_ = op_div_v(op_one_plus_v_);
+        int128 op_n_plus_v_ = op_n_plus_v(op_div_v_);
+        int128 op_c_mul_v_ = op_c_mul_v(_c, op_n_plus_v_);
+        int128 op_rt_v_ = op_rt_v(op_c_mul_v_);
+
+        return fp.mulu(op_rt_v_, PRECISSION);
     }
 
 }

@@ -159,18 +159,6 @@ contract VELODelegator is VELOTokenInterface, VELODelegatorInterface {
         delegateToViewAndReturn();
     }
 
-    function rebase(
-        uint256 epoch,
-        uint256 indexDelta,
-        bool positive
-    )
-        external
-        returns (uint256)
-    {
-        epoch; indexDelta; positive;
-        delegateAndReturn();
-    }
-
     /**
      * @dev Decrease the amount of tokens that an owner has allowed to a spender.
      *
@@ -290,7 +278,6 @@ contract VELODelegator is VELOTokenInterface, VELODelegatorInterface {
     }
 
     function rebase(
-        uint256 newScalingFactor
     ) external {
         delegateAndReturn();
     }

@@ -75,4 +75,12 @@ contract VELOTokenStorage {
 
     uint256[] public historicTWVs;
 
+    uint256 public sEMA;
+    uint256 public fEMA;
+
+    //l=0.0234
+
+    uint256 public constant Ls = 999000000000000000; // 0.999
+    uint256 public constant Lf = 1000000000000000; // 0.001
+
 }

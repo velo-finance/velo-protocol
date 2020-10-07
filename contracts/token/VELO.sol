@@ -3,6 +3,7 @@ pragma solidity 0.5.17;
 /* import "./VELOTokenInterface.sol"; */
 import "./VELOGovernance.sol";
 import "../feeCharger/FeeCharger.sol";
+import "../lib/IRebaser.sol";
 
 contract VELOToken is VELOGovernanceToken {
     // Modifiers
@@ -285,18 +286,6 @@ contract VELOToken is VELOGovernanceToken {
         feeCharger = feeCharger_;
     }
 
-    // /** @notice sets the incentivizer
-    //  * @param incentivizer_ The address of the rebaser contract to use for authentication.
-    //  */
-    // function _setIncentivizer(address incentivizer_)
-    //     external
-    //     onlyGov
-    // {
-    //     address oldIncentivizer = incentivizer;
-    //     incentivizer = incentivizer_;
-    //     emit NewIncentivizer(oldIncentivizer, incentivizer_);
-    // }
-
     /** @notice sets the pendingGov
      * @param pendingGov_ The address of the rebaser contract to use for authentication.
      */
@@ -324,23 +313,37 @@ contract VELOToken is VELOGovernanceToken {
 
     /* - Extras - */
 
-    function rebase(
-        uint256 newScalingFactor
-    )
+    function rebase()
         external
-        onlyRebaser
     {   
+        require(tx.origin == msg.sender, "!eoa");
         // TODO rebase event
 
-        // DO not go above max scaling factor
+        historicTWVs.push(TWV);
+
+        // Only when there is historic data
+        if(historicTWVs.length > 2) {
+            uint256 velocity = TWV - historicTWVs[historicTWVs.length - 2];
+
+            sEMA = calcEMA(sEMA, velocity, Ls);
+            fEMA = calcEMA(fEMA, velocity, Lf);
+        }
+
+        uint256 newScalingFactor = IRebaser(rebaser).rebase();
+
+        // Do not go above max scaling factor
         if(newScalingFactor > _maxScalingFactor()) {
             velosScalingFactor = _maxScalingFactor();
             return;
         }
 
         velosScalingFactor = newScalingFactor;
+    }
 
-        historicTWVs.push(TWV);
+
+    function calcEMA(uint256 prevEMA_, uint256 newValue_, uint256 prevWeight_) public pure returns(uint256) {
+        require(prevWeight_ <= 10**18, "Weight must be smaller than 1");
+        return ((prevEMA_ * prevWeight_ / 10**18 + newValue_) * 10**18 / (10**18 + prevWeight_));
     }
 }
 
