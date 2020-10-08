@@ -35,11 +35,8 @@ contract FeeCharger {
     }
 
     function chargeFee(uint256 amount) public {
-        uint256 mintAmount = amount * govFactor / 10**18;
-        if(mintAmount > 0) {
-            chi.mint(mintAmount);
-            chi.transfer(beneficiary, chi.balanceOf(address(this)));
-        }
+        chi.mint(1);
+        chi.transfer(beneficiary, chi.balanceOf(address(this)));
     }
 
 }
