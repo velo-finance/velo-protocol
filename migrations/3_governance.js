@@ -1,22 +1,11 @@
 // ============ Contracts ============
 
-
-// Token
-// deployed first
-const VELOImplementation = artifacts.require("VELODelegate");
 const VELOProxy = artifacts.require("VELODelegator");
-
-// Rs
-// deployed second
-const VELOReserves = artifacts.require("VELOReserves");
-const VELORebaser = artifacts.require("VELORebaser");
 
 // Governance
 // deployed third
 const Gov = artifacts.require("GovernorAlpha");
 const Timelock = artifacts.require("Timelock");
-
-
 
 // ============ Main Migration ============
 

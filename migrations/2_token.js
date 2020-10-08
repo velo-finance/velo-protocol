@@ -27,7 +27,7 @@ async function deployToken(deployer, network) {
       "VELO",
       "VELO",
       18,
-      "9000000000000000000000000", // print extra few mil for user
+      "100000000000000000000000000", // print extra few mil for user
       VELOImplementation.address,
       "0x",
     );
@@ -38,7 +38,7 @@ async function deployToken(deployer, network) {
       "VELO",
       "VELO",
       18,
-      "2000000000000000000000000",
+      "100000000000000000000000000",
       VELOImplementation.address,
       "0x"
     );
