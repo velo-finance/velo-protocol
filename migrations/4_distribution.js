@@ -34,6 +34,7 @@ async function deployDistribution(deployer, network, accounts) {
     ]);
 
   await feeCharger.setGovFactor("1000000000000000000");
+  await feeCharger.setBeneficiary(Timelock.address);
   await feeCharger.setGov(Timelock.address);
 
   await Promise.all([
