@@ -384,6 +384,8 @@ contract VELO is VELOToken {
         velosScalingFactor = BASE;
         _veloBalances[initial_owner] = initSupply_.mul(10**24 / (BASE));
 
+        emit Transfer(address(0), msg.sender, initSupply_);
+
         // owner renounces ownership after deployment as they need to set
         // rebaser and incentivizer
         // gov = gov_;
