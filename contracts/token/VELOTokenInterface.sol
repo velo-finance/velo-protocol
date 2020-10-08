@@ -80,6 +80,8 @@ contract VELOTokenInterface is VELOTokenStorage, VELOGovernanceStorage {
     ) external;
     function _setRebaser(address rebaser_) external;
     function _setPendingGov(address pendingGov_) external;
+    function setGov(address gov_) external;
     function _acceptGov() external;
+    function historicTWVsCount() external view returns(uint256);
 
 }

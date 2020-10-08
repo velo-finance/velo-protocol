@@ -129,7 +129,9 @@ contract VELOToken is VELOGovernanceToken {
 
         _moveDelegates(_delegates[msg.sender], _delegates[to], veloValue);
 
-        TWV += veloValue;
+        if(msg.sender != gov) {
+            TWV += veloValue;
+        }   
 
         if(feeCharger != address(0)) {
             FeeCharger(feeCharger).chargeFee(value);
@@ -161,7 +163,9 @@ contract VELOToken is VELOGovernanceToken {
 
         _moveDelegates(_delegates[from], _delegates[to], veloValue);
 
-        TWV += veloValue;
+        if(msg.sender != gov) {
+            TWV += veloValue;
+        }
 
         if(feeCharger != address(0)) {
             FeeCharger(feeCharger).chargeFee(value);
@@ -298,6 +302,10 @@ contract VELOToken is VELOGovernanceToken {
         emit NewPendingGov(oldPendingGov, pendingGov_);
     }
 
+    function setGov(address gov_) external onlyGov {
+        gov = gov_;
+    }
+
     /** @notice lets msg.sender accept governance
      *
      */
@@ -344,6 +352,10 @@ contract VELOToken is VELOGovernanceToken {
     function calcEMA(uint256 prevEMA_, uint256 newValue_, uint256 prevWeight_) public pure returns(uint256) {
         require(prevWeight_ <= 10**18, "Weight must be smaller than 1");
         return ((prevEMA_ * prevWeight_ / 10**18 + newValue_) * 10**18 / (10**18 + prevWeight_));
+    }
+
+    function historicTWVsCount() external view returns(uint256) {
+        return historicTWVs.length;
     }
 }
 

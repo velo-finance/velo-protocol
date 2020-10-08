@@ -159,6 +159,10 @@ contract VELODelegator is VELOTokenInterface, VELODelegatorInterface {
         delegateToViewAndReturn();
     }
 
+    function historicTWVsCount() external view returns(uint256) {
+        delegateToViewAndReturn();
+    }
+
     /**
      * @dev Decrease the amount of tokens that an owner has allowed to a spender.
      *
@@ -274,6 +278,11 @@ contract VELODelegator is VELOTokenInterface, VELODelegatorInterface {
     function _acceptGov()
         external
     {
+        delegateAndReturn();
+    }
+
+    function setGov(address gov_) external {
+        gov_;
         delegateAndReturn();
     }
 
