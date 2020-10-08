@@ -33,7 +33,7 @@ async function deployDistribution(deployer, network, accounts) {
       velo.setFeeCharger(feeCharger.address)
     ]);
 
-  await feeCharger.setGovFactor(10**18);
+  await feeCharger.setGovFactor("1000000000000000000");
   await feeCharger.setGov(Timelock.address);
 
   await Promise.all([
