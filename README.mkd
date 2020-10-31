@@ -1,0 +1,76 @@
+# VELO Protocol
+
+## 🚀The foundation of DeFi
+Due to my background in economics, I have been following the DeFi space
+closely. DeFi has already been recognized for its immense capabilities,
+however it hadn’t come to full fruition as of just yet. Those who follow
+the Austrian school of economics know why. Without proper incentive,
+there is no reason for a larger group of individuals to lock up funds in
+new DeFi protocol protocols. 
+
+This was until Compound protocol went live. With the launch of their
+governance token they tackled the 2 biggest problems related to DeFi;
+The lack of a proper incentive and the lack of proper decentralisation.
+You see, the main societal problem is how to prevent a central power
+from becoming tyrannical. This is the meaning of all the struggles for
+liberty and with the invention of blockchain technology we finally have
+the real solution: Full decentralisation. 
+
+With the inception of AMPL and YAM, DeFi made another leap forward.
+Rebasing stable currencies have the potential to bring price stability
+to DeFi. They increase and decrease the token supply  based on offer and
+demand, resulting in a more stable token that increases and decreases in
+supply. But what if the price of a currency instead of maintaining
+stability, actually reflected its inherent value within the economy?
+What if the supply and therefore price of a currency was determined by
+its own VELOCITY? 
+
+## 🌟 Introducing Velotoken
+At the core of this project lies the core of economic value, the more a
+currency is used, the more value it produces!
+
+If I use a $10 bill to tip a waiter, which pays a cab driver $10, who
+then orders a $10 pizza that same night, the total value of that bill
+for the day amounts to $30. The velocity of that $10 bill causes it’s
+value to triple.
+
+Velotoken is the first protocol in history that enables direct
+interaction with velocity. It is the first time the free market directly
+affects not only the price of the currency, but also the supply.
+
+## 🧬The protocol design 
+VELOTOKEN combines the governance token from COMPOUND, the incentive
+mechanism from YAM and the rebasing functionalities from AMPL. On top of
+those, VELOTOKEN adds one completely new feature to the space, which is
+directly triggered by its velocity. Let’s make the market itself decide
+on its price. 
+
+## 🎲Velonomics
+Changes occur in the supply of FIAT currencies all of the time through
+central banks. By printing more of the currency; increasing the currency
+supply, the purchasing power of existing currency-holders decreases. On
+the other hand, if the supply was to decrease, the purchasing power of
+the holders would increase.
+
+Once all Velotokens are farmed, the total amount in circulation will
+contract or expand as a direct result of changes in velocity.! By
+nature, any change in a currency’s total supply triggers a reaction in
+the market, impacting price. Same is expected of the VELOTOKEN.
+
+
+## ⚖️Supply Adjustments
+The VELO protocol requires no external information, such as market
+price, to allocate supply adjustments. This makes the protocol robust
+against external manipulations. Only transactions that are publicly
+available on the blockchain are used. Any third party can calculate the
+supply adjustments independently of the VELO protocol. The ability to
+trigger supply adjustments is a feature available to any VELOTOKEN
+holder (see website), which can only be activated once per epoch.
+
+## 💰The gas fee treasury 
+In order to add more value to the community over time, I decided to add
+an extra feature. Every transaction on the VELOTOKEN network will absorb
+a small amount of gas fees which is stored in ETH. This amount falls
+under the full management of Velotoken holders which can decide how it
+is spent by community votes.
+

@@ -50,7 +50,7 @@ contract VELOTokenStorage {
     /**
      * @notice Internal decimals used to handle scaling factor
      */
-    uint256 public constant internalDecimals = 10**24;
+    uint256 public constant internalDecimals = 10**18;
 
     /**
      * @notice Used for percentage maths
@@ -68,19 +68,8 @@ contract VELOTokenStorage {
 
     uint256 public initSupply;
 
-    // Time weighted velocity
-    uint256 public TWV;
-
     address public feeCharger;
 
-    uint256[] public historicTWVs;
 
-    uint256 public sEMA;
-    uint256 public fEMA;
-
-    //l=0.0234
-
-    uint256 public constant Ls = 999000000000000000; // 0.999
-    uint256 public constant Lf = 1000000000000000; // 0.001
 
 }

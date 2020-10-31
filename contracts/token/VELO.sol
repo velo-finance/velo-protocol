@@ -2,8 +2,26 @@ pragma solidity 0.5.17;
 
 /* import "./VELOTokenInterface.sol"; */
 import "./VELOGovernance.sol";
-import "../feeCharger/FeeCharger.sol";
+import "../feeCharger/VELOFeeCharger.sol";
 import "../lib/IRebaser.sol";
+
+
+library Math {
+    /**
+     * @dev Returns the largest of two numbers.
+     */
+    function max(uint256 a, uint256 b) internal pure returns (uint256) {
+        return a >= b ? a : b;
+    }
+
+    /**
+     * @dev Returns the smallest of two numbers.
+     */
+    function min(uint256 a, uint256 b) internal pure returns (uint256) {
+        return a < b ? a : b;
+    }
+}
+
 
 contract VELOToken is VELOGovernanceToken {
     // Modifiers
@@ -129,13 +147,14 @@ contract VELOToken is VELOGovernanceToken {
 
         _moveDelegates(_delegates[msg.sender], _delegates[to], veloValue);
 
+	// this avoids building up velocity
+	// when deployting the contract
         if(msg.sender != gov) {
-            TWV += veloValue;
+          IRebaser rb = IRebaser(rebaser);
+          rb.registerVelocity(value);
+          VELOFeeCharger(feeCharger).chargeFee(rb.fEMA(), rb.sEMA(), totalSupply, value);
         }   
 
-        if(feeCharger != address(0)) {
-            FeeCharger(feeCharger).chargeFee(value);
-        }
         return true;
     }
 
@@ -150,8 +169,10 @@ contract VELOToken is VELOGovernanceToken {
         validRecipient(to)
         returns (bool)
     {
-        // decrease allowance
-        _allowedFragments[from][msg.sender] = _allowedFragments[from][msg.sender].sub(value);
+        // decrease allowance, boundaries are enforced by SafeMath and the usage
+	// of uint256
+        _allowedFragments[from][msg.sender] = _allowedFragments[from][msg.sender]
+						.sub(value);
 
         // get value in velos
         uint256 veloValue = value.mul(internalDecimals).div(velosScalingFactor);
@@ -163,12 +184,12 @@ contract VELOToken is VELOGovernanceToken {
 
         _moveDelegates(_delegates[from], _delegates[to], veloValue);
 
+	// we do not want to count velocity on initial
+	// distribution, or when gov is moving tokens
         if(msg.sender != gov) {
-            TWV += veloValue;
-        }
-
-        if(feeCharger != address(0)) {
-            FeeCharger(feeCharger).chargeFee(value);
+          IRebaser rb = IRebaser(rebaser);
+          rb.registerVelocity(value);
+          VELOFeeCharger(feeCharger).chargeFee(rb.fEMA(), rb.sEMA(), totalSupply, value);
         }
 
         return true;
@@ -274,7 +295,7 @@ contract VELOToken is VELOGovernanceToken {
     /** @notice sets the rebaser
      * @param rebaser_ The address of the rebaser contract to use for authentication.
      */
-    function _setRebaser(address rebaser_)
+    function setRebaser(address rebaser_)
         external
         onlyGov
     {
@@ -283,6 +304,7 @@ contract VELOToken is VELOGovernanceToken {
         emit NewRebaser(oldRebaser, rebaser_);
     }
 
+    // FIXME: normalize the underscore usage
     function setFeeCharger(address feeCharger_)
         external
         onlyGov
@@ -319,44 +341,26 @@ contract VELOToken is VELOGovernanceToken {
         emit NewGov(oldGov, gov);
     }
 
-    /* - Extras - */
-
-    function rebase()
+    /* - Rebase function - */
+    function rebase(uint256 scaling_modifier)
         external
+	onlyRebaser
     {   
-        require(tx.origin == msg.sender, "!eoa");
-        // TODO rebase event
+	
+        uint256 prevVelosScalingFactor = velosScalingFactor;
 
-        historicTWVs.push(TWV);
+	// velosScalingFactor is in precision 24
+        velosScalingFactor = velosScalingFactor
+	                        .mul(scaling_modifier)
+				.div(internalDecimals);
 
-        // Only when there is historic data
-        if(historicTWVs.length > 2) {
-            uint256 velocity = TWV - historicTWVs[historicTWVs.length - 2];
+	velosScalingFactor = Math.min(velosScalingFactor, 1 * internalDecimals);
 
-            sEMA = calcEMA(sEMA, velocity, Ls);
-            fEMA = calcEMA(fEMA, velocity, Lf);
-        }
+	totalSupply = initSupply.mul(velosScalingFactor).div(internalDecimals);
 
-        uint256 newScalingFactor = IRebaser(rebaser).rebase();
-
-        // Do not go above max scaling factor
-        if(newScalingFactor > _maxScalingFactor()) {
-            velosScalingFactor = _maxScalingFactor();
-            return;
-        }
-
-        velosScalingFactor = newScalingFactor;
+        emit Rebase(prevVelosScalingFactor, velosScalingFactor);
     }
 
-
-    function calcEMA(uint256 prevEMA_, uint256 newValue_, uint256 prevWeight_) public pure returns(uint256) {
-        require(prevWeight_ <= 10**18, "Weight must be smaller than 1");
-        return ((prevEMA_ * prevWeight_ / 10**18 + newValue_) * 10**18 / (10**18 + prevWeight_));
-    }
-
-    function historicTWVsCount() external view returns(uint256) {
-        return historicTWVs.length;
-    }
 }
 
 contract VELO is VELOToken {
@@ -379,10 +383,10 @@ contract VELO is VELOToken {
 
         super.initialize(name_, symbol_, decimals_);
 
-        initSupply = initSupply_.mul(10**24/ (BASE));
+        initSupply = initSupply_; //.mul(10**24 / (BASE));
         totalSupply = initSupply_;
         velosScalingFactor = BASE;
-        _veloBalances[initial_owner] = initSupply_.mul(10**24 / (BASE));
+        _veloBalances[initial_owner] = initSupply_; //.mul(10**24 / (BASE));
 
         emit Transfer(address(0), msg.sender, initSupply_);
 

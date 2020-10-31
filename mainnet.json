@@ -1,0 +1,124 @@
+{
+  "VELODelegate": "0xe9bDA17C6667623F47Afff9b4a2b6e754Fe8d5D9",
+  "pool": {
+    "DAI": {
+      "label": "DAI",
+      "address": "0x8BCCEc8F7085c05F663ce93137be3D18C9285dC7",
+      "starttime": "1604448000",
+      "duration": "1209600",
+      "perc": "0.10"
+    },
+    "CRV": {
+      "label": "CRV",
+      "address": "0x9DF8c7A718f1143F76185b6995b22562Dc3dF025",
+      "starttime": "1604448000",
+      "duration": "1209600",
+      "perc": "0.10"
+    },
+    "VLO_ETH_LP": {
+      "label": "VLO_ETH_LP",
+      "address": "0xaa6C343C571435301F39133150421672Db66CFeA",
+      "starttime": "1604793600",
+      "duration": "1209600",
+      "perc": "0.30"
+    },
+    "VLO_ETH_BLP": {
+      "label": "VLO_ETH_BLP",
+      "address": "0x9d8a7cDFB46955d8a36B8EF945E205B92DF2491B",
+      "starttime": "1604793600",
+      "duration": "1209600",
+      "perc": "0.10"
+    },
+    "ETH_DAI_LP": {
+      "label": "ETH_DAI_LP",
+      "address": "0x18d6151dF325c8F9f4450bdA0672819ee5CAD336",
+      "starttime": "1605657600",
+      "duration": "1209600",
+      "perc": "0.06"
+    },
+    "ETH_USDC_LP": {
+      "label": "ETH_USDC_LP",
+      "address": "0x8ffaa5c68D88624aE8684763796dCb1D7a42d60F",
+      "starttime": "1605657600",
+      "duration": "1209600",
+      "perc": "0.06"
+    },
+    "ETH_USDT_LP": {
+      "label": "ETH_USDT_LP",
+      "address": "0xC5d11Db6D8460d296ffFbC2b5a76e2F64cD78ADF",
+      "starttime": "1605657600",
+      "duration": "1209600",
+      "perc": "0.06"
+    },
+    "ETH_WBTC_LP": {
+      "label": "ETH_WBTC_LP",
+      "address": "0x4956eC9832bae781A40A90b0F1D92fdfc22e5a05",
+      "starttime": "1605657600",
+      "duration": "1209600",
+      "perc": "0.06"
+    },
+    "COMP": {
+      "label": "COMP",
+      "address": "0xA5b13F2d5E412FA6700B49f2805CA8C67F85EeC3",
+      "starttime": "1606262400",
+      "duration": "604800",
+      "perc": "0.02"
+    },
+    "AAVE": {
+      "label": "AAVE",
+      "address": "0xC51512b82629446ddDDe6519644Aa905D6B02Ace",
+      "starttime": "1606262400",
+      "duration": "604800",
+      "perc": "0.02"
+    },
+    "LINK": {
+      "label": "LINK",
+      "address": "0x77161d840419e7545e8c352bff4E0Ea89f52f47d",
+      "starttime": "1606262400",
+      "duration": "604800",
+      "perc": "0.02"
+    },
+    "SNX": {
+      "label": "SNX",
+      "address": "0x9fa6bE5cf2145C938a93104C67154c34B9B24eC3",
+      "starttime": "1606262400",
+      "duration": "604800",
+      "perc": "0.02"
+    },
+    "SUSHI": {
+      "label": "SUSHI",
+      "address": "0xf983F04434002fc60E29C2dbf1db8a8D9f0119eD",
+      "starttime": "1606262400",
+      "duration": "604800",
+      "perc": "0.02"
+    },
+    "PICKLE": {
+      "label": "PICKLE",
+      "address": "0x48fCD461BDeB3804DB71172d656e159cfD315cb8",
+      "starttime": "1606262400",
+      "duration": "604800",
+      "perc": "0.02"
+    },
+    "DOUGH": {
+      "label": "DOUGH",
+      "address": "0xE2aD03c1be6aA64d896A08500639226f386F50F4",
+      "starttime": "1606262400",
+      "duration": "604800",
+      "perc": "0.02"
+    },
+    "YFI": {
+      "label": "YFI",
+      "address": "0x240aB92E5474692b8fE2E7535E6AD48c27fb77f3",
+      "starttime": "1606262400",
+      "duration": "604800",
+      "perc": "0.02"
+    }
+  },
+  "VELODelegator": "0x98ad9B32dD10f8D8486927D846D4Df8BAf39Abe2",
+  "VELORebaser": "0x7Bf3C485Aca9f0D375f1C853A7f9E2Ed9A0Be916",
+  "VELOFeeCharger": "0xeBd8065CbBe0C13917a0E31FE1F85D91649E2244",
+  "UniswapV2Pair": "0x259E558892783fd8941EBBeDa694318C1C3d9263",
+  "BalancerPool": "0xE52E551141D29e4D08A826ff029059f1fB5F6f52",
+  "Timelock": "0x22daA1F74A8785965E841270B9aED601F9eD310D",
+  "GovernorAlpha": "0xA1D8800AE2f4794F2910CfCD835831FAae69CeA0"
+}

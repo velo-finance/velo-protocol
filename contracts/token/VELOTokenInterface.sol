@@ -14,7 +14,7 @@ contract VELOTokenInterface is VELOTokenStorage, VELOGovernanceStorage {
     /**
      * @notice Event emitted when tokens are rebased
      */
-    event Rebase(uint256 epoch, uint256 prevYamsScalingFactor, uint256 newYamsScalingFactor);
+    event Rebase(uint256 prevVelosScalingFactor, uint256 newVelosScalingFactor);
 
     /*** Gov Events ***/
 
@@ -76,12 +76,15 @@ contract VELOTokenInterface is VELOTokenStorage, VELOGovernanceStorage {
 
     /* - Permissioned/Governance functions - */
     function mint(address to, uint256 amount) external returns (bool);
-    function rebase(
-    ) external;
-    function _setRebaser(address rebaser_) external;
     function _setPendingGov(address pendingGov_) external;
     function setGov(address gov_) external;
     function _acceptGov() external;
-    function historicTWVsCount() external view returns(uint256);
 
+
+    /* - Custom rebaser implementation - */
+    function setRebaser(address rebaser_) external;
+    // FIXME: setFeeCharger??
+
+    /* rebaser */
+    function rebase(uint256 scaling_modifier) external;
 }

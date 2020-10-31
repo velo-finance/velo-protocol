@@ -159,10 +159,6 @@ contract VELODelegator is VELOTokenInterface, VELODelegatorInterface {
         delegateToViewAndReturn();
     }
 
-    function historicTWVsCount() external view returns(uint256) {
-        delegateToViewAndReturn();
-    }
-
     /**
      * @dev Decrease the amount of tokens that an owner has allowed to a spender.
      *
@@ -256,7 +252,7 @@ contract VELODelegator is VELOTokenInterface, VELODelegatorInterface {
         delegateAndReturn();
     }
 
-    function _setRebaser(address rebaser_)
+    function setRebaser(address rebaser_)
         external
     {
         rebaser_; // Shh
@@ -286,15 +282,15 @@ contract VELODelegator is VELOTokenInterface, VELODelegatorInterface {
         delegateAndReturn();
     }
 
-    function rebase(
-    ) external {
+    function rebase(uint256 scaling_modifier) external {
         delegateAndReturn();
     }
 
     function setFeeCharger(
-        address feeCharger
+        address feeCharger_
     ) external {
-        delegateAndReturn();
+      feeCharger_;
+      delegateAndReturn();
     }
 
 

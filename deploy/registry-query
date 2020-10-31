@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+
+const hre = require("hardhat");
+const reg = require("./registry")(hre);
+
+async function main() {
+  let key = process.argv[2];
+
+  let value = await reg.fetch(key);
+  if(!value) { throw "Non existing value" } 
+
+  console.log(value);
+}
+
+main()
+  .then(() => process.exit(0))
+  .catch(error => {
+    console.error(error);
+    process.exit(1);
+  });
+
